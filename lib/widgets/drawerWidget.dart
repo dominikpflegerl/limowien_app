@@ -7,8 +7,9 @@ import '../routes/historyView.dart';
 import '../routes/accountView.dart';
 import '../routes/paymentView.dart';
 import '../routes/settingsView.dart';
-import '../routes/logoutView.dart';
+//import '../routes/logoutView.dart';
 import '../routes/aboutView.dart';
+import '../module/loginView.dart';
 
 
 class NavigationDrawer extends StatelessWidget {
@@ -38,6 +39,11 @@ class NavigationDrawer extends StatelessWidget {
                 onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new HistoryView(),));},
               ),
               new ListTile(
+                leading: new Icon(MdiIcons.history,color: Colors.white),
+                title: new Text("LoginView", style: new TextStyle(color: Colors.white),),
+                onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LoginView(),));},
+              ),
+              new ListTile(
                 leading: new Icon(MdiIcons.carMultiple,color: Colors.white),
                 title: new Text("Flottenübersicht", style: new TextStyle(color: Colors.white),),
                 onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new FleetView(),));},
@@ -62,7 +68,7 @@ class NavigationDrawer extends StatelessWidget {
               new ListTile(
                 leading: new Icon(MdiIcons.logout,color: Colors.white),
                 title: new Text("Abmelden", style: new TextStyle(color: Colors.white),),
-                onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LogoutView(),));},
+                onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LoginView(),));},
               ),              new Divider(color: Colors.white),
               new ListTile(
                 leading: new Icon(MdiIcons.information,color: Colors.white),

@@ -1,10 +1,5 @@
-import 'dart:async';
-import 'package:limowien_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import '../widgets/drawerWidget.dart';
-
 
 class SettingsView extends StatefulWidget {
   SettingsView({Key key, this.title}) : super(key: key);
