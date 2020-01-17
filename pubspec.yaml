@@ -1,5 +1,5 @@
 name: limowien_app # easy changeable without any impact
-description: A new Flutter project.2
+description: A new Flutter project.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -31,6 +31,7 @@ dependencies:
   geolocator:
   location:
   flutter_spinkit:
+  avatar_glow:
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    - assets/
     - assets/images/
     - assets/images/vehicle/
   fonts:
