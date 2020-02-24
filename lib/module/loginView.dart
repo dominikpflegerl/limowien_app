@@ -46,11 +46,11 @@ class _LoginView extends State<LoginView> with SingleTickerProviderStateMixin {
                 Column(
                   children: <Widget>[
                     AvatarGlow(
-                      endRadius: 90,
+                      endRadius: 100,
                       duration: Duration(seconds: 4),
                       glowColor: Colors.white24,
                       repeat: true,
-                      repeatPauseDuration: Duration(seconds: 4),
+                      repeatPauseDuration: Duration(seconds: 2),
                       startDelay: Duration(seconds: 2),
                       child: Material(
                           elevation: 12.0,
@@ -64,46 +64,28 @@ class _LoginView extends State<LoginView> with SingleTickerProviderStateMixin {
                     ),
                   ],
                 ),
-                DelayedAnimation(
-                  child: Text(
-                    "Hey,",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 35.0,
-                        color: color),
-                  ),
-                  delay: delayedAmount + 1000,
-                ),
-                DelayedAnimation(
-                  child: Text(
-                    "Willkommen!",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30.0,
-                        color: color),
-                  ),
-                  delay: delayedAmount + 1000,
-                ),
-                SizedBox(
-                  height: 40.0,
-                ),
+                SizedBox(height: 20.0),
                 DelayedAnimation(
                   child: Text(
                     "Limowien",
-                    style: TextStyle(fontSize: 20.0, color: color),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 27.0,
+                        color: Colors.white),
                   ),
-                  delay: delayedAmount + 1500,
+                  delay: delayedAmount + 1000,
                 ),
                 DelayedAnimation(
                   child: Text(
                     "more than a limosine",
-                    style: TextStyle(fontSize: 20.0, color: color),
+                    style: TextStyle(
+                       // fontWeight: FontWeight.bold,
+                        fontSize: 24.0,
+                        color: Colors.white),
                   ),
-                  delay: delayedAmount + 1500,
+                  delay: delayedAmount + 1000,
                 ),
-                SizedBox(
-                  height: 100.0,
-                ),
+                SizedBox(height: 150.0),
                 DelayedAnimation(
                   child: GestureDetector(
                     onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new Home(),));},
@@ -121,8 +103,8 @@ class _LoginView extends State<LoginView> with SingleTickerProviderStateMixin {
                     child: Text(
                     "Ich habe bereits ein Konto".toUpperCase(),
                     style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        //fontWeight: FontWeight.bold,
                         color: color),
                     ),
                   ),
