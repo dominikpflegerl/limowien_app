@@ -56,7 +56,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                       endRadius: 120,
                       showTwoGlows: true,
                       glowColor: Color(0xFFb69862),
-                      duration: Duration(milliseconds: 4000), // AVD: 4 -> 4 sec, Mi A2: 40 -> 4 sec ??? NIGGA?
+                      duration: Duration(seconds: 4), // AVD: 4 -> 4 sec, Mi A2: 40 -> 4 sec ??? NIGGA?
                       repeatPauseDuration: Duration(seconds: 2),
                       startDelay: Duration(seconds: 2),
                       child: Material(

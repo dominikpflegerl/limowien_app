@@ -17,7 +17,7 @@ void main(){
   runApp(new MaterialApp(
     color: Colors.black,
     debugShowCheckedModeBanner: false,
-    home: AppLaunch(), // slpashscreen.dart
+    home: Home(), // slpashscreen.dart
   ));
 }
 
