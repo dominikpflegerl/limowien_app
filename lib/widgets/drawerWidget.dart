@@ -73,7 +73,7 @@ class NavigationDrawer extends StatelessWidget {
                       ),              new Divider(color: Colors.white),
                       new ListTile(
                         leading: new Icon(MdiIcons.information,color: Colors.white),
-                        title: new Text("About", style: new TextStyle(color: Colors.white),),
+                        title: new Text("Hilfe & Kontakt", style: new TextStyle(color: Colors.white),),
                         onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new AboutView(),));},
                       ),
                       new ListTile(
