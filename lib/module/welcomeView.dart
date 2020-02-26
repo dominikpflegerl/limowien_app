@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // statusbar color
 import 'delayed_animation.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:limowien_app/main.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
-class LoginView extends StatefulWidget {
-  LoginView({Key key, this.title}) : super(key: key);
+class WelcomeView extends StatefulWidget {
+  WelcomeView({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _LoginView createState() => new _LoginView();
+  _WelcomeView createState() => new _WelcomeView();
 }
 
-class _LoginView extends State<LoginView> with SingleTickerProviderStateMixin {
+class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixin {
   final int delayedAmount = 500;
   double _scale;
   AnimationController _controller;
@@ -30,14 +32,18 @@ class _LoginView extends State<LoginView> with SingleTickerProviderStateMixin {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    final color = Colors.white;
     _scale = 1 - _controller.value;
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.light,
+      statusBarColor: Colors.transparent,
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          backgroundColor: Color(0xFFb69862),
+          backgroundColor: Color(0xFF221f1c),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -46,46 +52,70 @@ class _LoginView extends State<LoginView> with SingleTickerProviderStateMixin {
                 Column(
                   children: <Widget>[
                     AvatarGlow(
-                      endRadius: 120,
-                      duration: Duration(seconds: 5),
-                      glowColor: Colors.white24,
                       repeat: true,
-                      repeatPauseDuration: Duration(seconds: 0),
-                      startDelay: Duration(seconds: 0),
+                      endRadius: 120,
+                      showTwoGlows: true,
+                      glowColor: Color(0xFFb69862),
+                      duration: Duration(milliseconds: 4000), // AVD: 4 -> 4 sec, Mi A2: 40 -> 4 sec ??? NIGGA?
+                      repeatPauseDuration: Duration(seconds: 2),
+                      startDelay: Duration(seconds: 2),
                       child: Material(
-                          elevation: 10,
+                          elevation: 0.0,
                           shape: CircleBorder(),
                           child: CircleAvatar(
-                            backgroundColor: Color(0xFF221f1c),
+                            backgroundColor: Color(0xFF000000),
                             child: Image.asset('assets/images/logo.png', width: 70,),
                             radius: 60.0,
                           )
                       ),
+                      animate: true,
+                      curve: Curves.fastOutSlowIn,
                     ),
                   ],
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: 10.0),
                 DelayedAnimation(
-                  child: Text(
-                    "Limowien",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 27.0,
-                        color: Colors.white),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "limo",
+                        style: TextStyle(
+                          //fontWeight: FontWeight.bold,
+                            fontFamily: 'TimesNewRoman',
+                            fontSize: 44.0,
+                            color: Color(0xFFE2E0E1FF),
+                            letterSpacing: 7
+                        ),
+                      ),
+                      Text(
+                        "wien",
+                        style: TextStyle(
+                          //fontWeight: FontWeight.bold,
+                            fontFamily: 'TimesNewRoman',
+                            fontSize: 44.0,
+                            color: Color(0xFFb69862),
+                            letterSpacing: 7
+                        ),
+                      ),
+                    ],
                   ),
                   delay: delayedAmount + 1000,
                 ),
                 DelayedAnimation(
                   child: Text(
-                    "more than a limosine",
+                    "more than a limousine",
                     style: TextStyle(
-                       // fontWeight: FontWeight.bold,
-                        fontSize: 24.0,
-                        color: Colors.white),
+                      //fontWeight: FontWeight.bold,
+                        fontFamily: 'TimesNewRoman',
+                        fontSize: 20.0,
+                        color: Color(0xFFE2E0E1FF),
+                        letterSpacing: 2
+                    ),
                   ),
                   delay: delayedAmount + 1000,
                 ),
-                SizedBox(height: 150.0),
+                SizedBox(height: 120.0),
                 DelayedAnimation(
                   child: GestureDetector(
                     onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new Home(),));},
@@ -105,7 +135,7 @@ class _LoginView extends State<LoginView> with SingleTickerProviderStateMixin {
                     style: TextStyle(
                         fontSize: 18.0,
                         //fontWeight: FontWeight.bold,
-                        color: color),
+                        color: Color(0xFFE2E0E1FF)),
                     ),
                   ),
                   delay: delayedAmount + 2000,
@@ -124,7 +154,7 @@ class _LoginView extends State<LoginView> with SingleTickerProviderStateMixin {
         width: 270,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(88.0),
-          color: Color(0xFF221f1c),
+          color: Color(0xFFb69862),
         ),
         child: Center(
           child: Text(
@@ -132,7 +162,7 @@ class _LoginView extends State<LoginView> with SingleTickerProviderStateMixin {
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFFFFFFF),
+              color: Color(0xFFE2E0E1FF),
             ),
           ),
         ),
