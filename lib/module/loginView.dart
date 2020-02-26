@@ -46,14 +46,14 @@ class _LoginView extends State<LoginView> with SingleTickerProviderStateMixin {
                 Column(
                   children: <Widget>[
                     AvatarGlow(
-                      endRadius: 100,
-                      duration: Duration(seconds: 4),
+                      endRadius: 120,
+                      duration: Duration(seconds: 5),
                       glowColor: Colors.white24,
                       repeat: true,
-                      repeatPauseDuration: Duration(seconds: 2),
-                      startDelay: Duration(seconds: 2),
+                      repeatPauseDuration: Duration(seconds: 0),
+                      startDelay: Duration(seconds: 0),
                       child: Material(
-                          elevation: 12.0,
+                          elevation: 10,
                           shape: CircleBorder(),
                           child: CircleAvatar(
                             backgroundColor: Color(0xFF221f1c),
