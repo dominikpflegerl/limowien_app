@@ -32,6 +32,7 @@ dependencies:
   location:
   flutter_spinkit:
   avatar_glow:
+  package_info:
 
 dev_dependencies:
   flutter_test:
