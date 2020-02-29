@@ -1,8 +1,8 @@
-# flutter_limowien_app
+# Diplomprojekt: Limowien App
 
-A new Flutter project.
+Diplomprojekt der 7/8BBIF (SJ 2019/20)
 
-## Getting Started
+## Informationen
 
 This project is a starting point for a Flutter application.
 
