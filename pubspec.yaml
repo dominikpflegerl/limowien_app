@@ -28,13 +28,17 @@ dependencies:
   flutter_statusbarcolor:
   url_launcher:
   splashscreen:
-  flutter_form_builder:
   google_maps_flutter:
   geolocator:
   location:
   flutter_spinkit:
   avatar_glow:
   package_info:
+
+  # Firebase
+
+  firebase_database:
+  firebase_auth:
 
 dev_dependencies:
   flutter_test:
