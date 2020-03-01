@@ -229,7 +229,7 @@ class _RegisterView extends State<RegisterView> {
                   height: 20,
                 ),
                 Text(
-                  "Das Passwort muss mindestens 12 Zeichen lang sein und Sonderzeichen und Zahlen enthalten.",
+                  "Das Passwort muss mindestens 12 Zeichen lang sein, sowie Sonderzeichen und Zahlen enthalten.",
                   style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
                 SizedBox(
