@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "587779873613",
+    "firebase_url": "https://diplomprojekt-lw-1577664120147.firebaseio.com",
+    "project_id": "diplomprojekt-lw-1577664120147",
+    "storage_bucket": "diplomprojekt-lw-1577664120147.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587779873613:android:37a6328a8a45e2bc347504",
+        "android_client_info": {
+          "package_name": "com.limowien.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587779873613-9prhc9loo4mutcp5u9t1vangenthkesp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.limowien.app",
+            "certificate_hash": "82ed692df67193f9550e090b4752f4e57e2adcc2"
+          }
+        },
+        {
+          "client_id": "587779873613-7if45idc9a4pcabhph41j0gga85vvpa1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwwwtK98-ZzKWD6J86mrFI1_3LlGMwvJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587779873613-7if45idc9a4pcabhph41j0gga85vvpa1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

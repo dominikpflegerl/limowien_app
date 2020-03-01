@@ -4,6 +4,8 @@ import 'package:flutter/painting.dart';
 import 'registerView.dart';
 import 'package:limowien_app/main.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 // TODO
 // hide logo if keyboard is open for visibility
 // implement FireBase Auth
@@ -22,6 +24,7 @@ class  EmptyAppBar  extends StatelessWidget implements PreferredSizeWidget {
 class LoginView extends StatefulWidget {
   LoginView({Key key, this.title}) : super(key: key);
   final String title;
+  final _formKey = new GlobalKey<FormState>();
 
   @override
   _LoginView createState() => new _LoginView();
@@ -92,7 +95,12 @@ class _LoginView extends State<LoginView> {
                     height: 15,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
+                    onSaved: (value) => _email = value.trim(),
+
                     style: TextStyle(color: Colors.white),
+                    autocorrect: true,
                     cursorColor: Color(0xFFb69862),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -108,6 +116,10 @@ class _LoginView extends State<LoginView> {
                     height: 20,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
+                    onSaved: (value) => _password = value.trim(),
+
                     style: TextStyle(color: Colors.white),
                     cursorColor: Color(0xFFb69862),
                     obscureText: true,
