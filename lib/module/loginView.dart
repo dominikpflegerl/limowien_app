@@ -7,7 +7,7 @@ import 'package:limowien_app/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 // TODO
-// hide logo if keyboard is open for visibility
+// hide logo if keyboard is open for visibilitgiy
 // implement FireBase Auth
 // implement verification
 // implement password forgotten feature
@@ -97,7 +97,7 @@ class _LoginView extends State<LoginView> {
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
-                    onSaved: (value) => _email = value.trim(),
+                    //onSaved: (value) => _email = value.trim(),
 
                     style: TextStyle(color: Colors.white),
                     autocorrect: true,
@@ -118,7 +118,7 @@ class _LoginView extends State<LoginView> {
                   TextFormField(
                     keyboardType: TextInputType.visiblePassword,
                     validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
-                    onSaved: (value) => _password = value.trim(),
+                    //onSaved: (value) => _password = value.trim(),
 
                     style: TextStyle(color: Colors.white),
                     cursorColor: Color(0xFFb69862),
