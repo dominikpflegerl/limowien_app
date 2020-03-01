@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // statusbar color
 import 'delayed_animation.dart';
+
+import 'loginView.dart';
+import 'registerView.dart';
+
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:limowien_app/main.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 class WelcomeView extends StatefulWidget {
   WelcomeView({Key key, this.title}) : super(key: key);
@@ -118,7 +120,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                 SizedBox(height: 120.0),
                 DelayedAnimation(
                   child: GestureDetector(
-                    onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new Home(),));},
+                    onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new RegisterView(),));},
                     child: Transform.scale(
                       scale: _scale,
                       child: _animatedButtonUI,
@@ -129,7 +131,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                 SizedBox(height: 50.0,),
                 DelayedAnimation(
                   child: GestureDetector(
-                    onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new Home(),));},
+                    onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LoginView(),));},
                     child: Text(
                     "Ich habe bereits ein Konto".toUpperCase(),
                     style: TextStyle(

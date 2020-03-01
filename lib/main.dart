@@ -5,19 +5,22 @@ import 'package:flutter/painting.dart';
 // Plugins
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:limowien_app/module/welcomeView.dart';
 import 'package:location/location.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 // OWN
 import 'module/splashScreen.dart';
 import 'widgets/drawerWidget.dart';
 import 'routes/bookView.dart';
+import 'module/loginView.dart';
+import 'module/registerView.dart';
 
 
 void main(){
   runApp(new MaterialApp(
     color: Colors.black,
     debugShowCheckedModeBanner: false,
-    home: Home(), // slpashscreen.dart
+    home: WelcomeView(), // slpashscreen.dart
   ));
 }
 
