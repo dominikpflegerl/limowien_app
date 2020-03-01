@@ -28,7 +28,6 @@ dependencies:
   flutter_statusbarcolor:
   url_launcher:
   splashscreen:
-  flutter_form_builder:
   google_maps_flutter:
   geolocator:
   location:

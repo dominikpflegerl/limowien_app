@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter/services.dart'; // statusbar color
 import 'aboutView.dart';
@@ -145,7 +146,7 @@ class _AwesomeListItemState extends State<AwesomeListItem> {
         elevation: 0,
         child: ExpansionTile(
           trailing: Icon(MdiIcons.dotsVertical, color: Colors.white),
-          title: Text(widget.q, style: new TextStyle(color: Colors.white)),
+          title: Text(widget.q, style: new TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           children: <Widget>[
             ListTile(
               title: new Text(

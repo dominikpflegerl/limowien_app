@@ -7,7 +7,6 @@ import '../routes/historyView.dart';
 import '../routes/accountView.dart';
 import '../routes/paymentView.dart';
 import '../routes/settingsView.dart';
-//import '../routes/logoutView.dart';
 import '../routes/aboutView.dart';
 import '../module/welcomeView.dart';
 

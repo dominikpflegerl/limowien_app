@@ -102,13 +102,14 @@ class _AboutView extends State<AboutView> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Version ", style: TextStyle(color: Colors.grey, fontSize: 11)),
+                  Padding(padding: EdgeInsets.only(bottom: 10),),
+                  Text("Version ", style: TextStyle(color: Colors.white24, fontSize: 11)),
                   FutureBuilder(
                       future: getVersionNumber(),
                       builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
                           Text(
                             snapshot.hasData ? snapshot.data : "Loading ...",
-                            style: TextStyle(color: Colors.grey, fontSize: 11),
+                            style: TextStyle(color: Colors.white24, fontSize: 11),
                           )
                   ),
                 ],
