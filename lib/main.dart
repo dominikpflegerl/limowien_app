@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:limowien_app/module/splashScreen.dart';
 // home
-import 'package:splashscreen/splashscreen.dart';
 import 'package:limowien_app/module/welcomeView.dart';
 import 'package:limowien_app/home.dart';
 // AUTH
@@ -12,7 +10,7 @@ import 'package:limowien_app/module/registerView.dart';
 void main(){
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: AppLaunch(), // slpashscreen.dart
+    home: WelcomeView(), // slpashscreen.dart
   ));
 }
 

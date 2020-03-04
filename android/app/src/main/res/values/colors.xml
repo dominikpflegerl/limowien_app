@@ -2,4 +2,5 @@
 <resources>
     <color name="darkBrown">#dfddde</color>
     <color name="ic_launcher_background">#000000</color>
+	<color name="splash_color">#221f1c</color>
 </resources>

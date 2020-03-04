@@ -86,7 +86,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                           //fontWeight: FontWeight.bold,
                             fontFamily: 'TimesNewRoman',
                             fontSize: 44.0,
-                            color: Color(0xFFE2E0E1FF),
+                            color: Colors.grey,
                             letterSpacing: 7
                         ),
                       ),
@@ -111,7 +111,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                       //fontWeight: FontWeight.bold,
                         fontFamily: 'TimesNewRoman',
                         fontSize: 20.0,
-                        color: Color(0xFFE2E0E1FF),
+                        color: Colors.grey,
                         letterSpacing: 2
                     ),
                   ),
@@ -137,7 +137,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                     style: TextStyle(
                         fontSize: 18.0,
                         //fontWeight: FontWeight.bold,
-                        color: Color(0xFFE2E0E1FF)),
+                        color: Color(0xFFFFFFFF)),
                     ),
                   ),
                   delay: delayedAmount + 2000,
@@ -164,7 +164,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFE2E0E1FF),
+              color: Color(0xFFFFFFFF),
             ),
           ),
         ),
