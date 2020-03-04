@@ -2,17 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'package:limowien_app/home.dart';
-
-import '../routes/fleetView.dart';
-import '../routes/historyView.dart';
-import '../routes/accountView.dart';
-import '../routes/paymentView.dart';
-import '../routes/settingsView.dart';
-import '../routes/aboutView.dart';
-import '../module/welcomeView.dart';
-
-
 class NavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -40,28 +29,28 @@ class NavigationDrawer extends StatelessWidget {
                         new ListTile(
                           leading: new Icon(MdiIcons.history,color: Colors.white),
                           title: new Text("Deine Fahrten", style: new TextStyle(color: Colors.white),),
-                          onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new HistoryView(),));},
+                          onTap: () {Navigator.pop(context); Navigator.pushNamed(context, '/historyView');},
                         ),
                         new ListTile(
                           leading: new Icon(MdiIcons.carMultiple,color: Colors.white),
                           title: new Text("Flottenübersicht", style: new TextStyle(color: Colors.white),),
-                          onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new FleetView(),));},
+                          onTap: () {Navigator.pop(context); Navigator.pushNamed(context, '/fleetView');},
                         ),
                         new Divider(color: Colors.white),
                         new ListTile(
                           leading: new Icon(MdiIcons.account,color: Colors.white),
                           title: new Text("Konto", style: new TextStyle(color: Colors.white),),
-                          onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new AccountView(),));},
+                          onTap: () {Navigator.pop(context); Navigator.pushNamed(context, '/accountView');},
                         ),
                         new ListTile(
                           leading: new Icon(MdiIcons.cash,color: Colors.white),
                           title: new Text("Bezahlung", style: new TextStyle(color: Colors.white),),
-                          onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new PaymentView(),));},
+                          onTap: () {Navigator.pop(context); Navigator.pushNamed(context, '/paymentView');},
                         ),
                         new ListTile(
                           leading: new Icon(MdiIcons.settings,color: Colors.white),
                           title: new Text("Einstellungen", style: new TextStyle(color: Colors.white),),
-                          onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SettingsView(),));},
+                          onTap: () {Navigator.pop(context); Navigator.pushNamed(context, '/settingsView');},
                         ),
                         new Divider(color: Colors.white),
                         new ListTile(
@@ -73,7 +62,7 @@ class NavigationDrawer extends StatelessWidget {
                         new ListTile(
                           leading: new Icon(MdiIcons.information,color: Colors.white),
                           title: new Text("Hilfe & Kontakt", style: new TextStyle(color: Colors.white),),
-                          onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new AboutView(),));},
+                          onTap: () {Navigator.pop(context); Navigator.pushNamed(context, '/aboutView');},
                         ),
                         new ListTile(
                           title: new Text("© Limowien GmbH", style: new TextStyle(color: Colors.white, fontSize: 9),),
