@@ -34,8 +34,8 @@ dependencies:
   flutter_spinkit:
   avatar_glow:
   package_info:
-
-  # Firebase
+  flutter_rating_bar:
+# Firebase
 
   firebase_database:
   firebase_auth:

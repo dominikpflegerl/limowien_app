@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
 import 'loginView.dart';
-import 'package:limowien_app/main.dart';
+import 'package:limowien_app/home.dart';
 
 // TODO
 // hide logo if keyboard is open for visibility

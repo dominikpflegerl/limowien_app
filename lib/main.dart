@@ -1,175 +1,105 @@
-import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-// Plugins
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:limowien_app/module/splashScreen.dart';
+// home
+import 'package:splashscreen/splashscreen.dart';
 import 'package:limowien_app/module/welcomeView.dart';
-import 'package:location/location.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-// OWN
-import 'module/splashScreen.dart';
-import 'widgets/drawerWidget.dart';
-import 'routes/bookView.dart';
-import 'module/loginView.dart';
-import 'module/registerView.dart';
-
+import 'package:limowien_app/home.dart';
+// AUTH
+import 'package:limowien_app/services/auth.dart';
+import 'package:limowien_app/module/loginView.dart';
+import 'package:limowien_app/module/registerView.dart';
 
 void main(){
   runApp(new MaterialApp(
-    color: Colors.black,
     debugShowCheckedModeBanner: false,
-    home: WelcomeView(), // slpashscreen.dart
+    home: AppLaunch(), // slpashscreen.dart
   ));
 }
 
-class Home extends StatefulWidget {
-  @override
-  _Home createState() => _Home();
+enum AuthStatus {
+  NOT_DETERMINED,
+  NOT_LOGGED_IN,
+  LOGGED_IN,
 }
 
-class _Home extends State<Home> {
-  Position position;
-  Widget _child;
-  Container fabBook;
-  Container fabLocation;
-  Completer<GoogleMapController> _controller = Completer();
+class RootPage extends StatefulWidget {
+  RootPage({this.auth});
+
+  final BaseAuth auth;
+
   @override
+  State<StatefulWidget> createState() => new _RootPageState();
+}
 
+class _RootPageState extends State<RootPage> {
+  AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
+  String _userId = "";
+
+  @override
   void initState() {
-    // TODO: implement initState
-   // _child = RippleIndicator("Getting Location");
-    getCurrentLocationOnStartup();
     super.initState();
-  }
-
-  void getCurrentLocationOnStartup() async {
-    Position res = await Geolocator().getCurrentPosition();
-    setState(() {
-      position = res;
-      _child = mapWidget();
+    widget.auth.getCurrentUser().then((user) {
+      setState(() {
+        if (user != null) {
+          _userId = user?.uid;
+        }
+        authStatus =
+        user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
+      });
     });
   }
 
-  void _currentLocation() async {
-    final GoogleMapController controller = await _controller.future;
-    LocationData currentLocation;
-    var location = new Location();
-    try {
-      currentLocation = await location.getLocation();
-    } on Exception {
-      currentLocation = null;
-    }
-
-    controller.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(
-        bearing: 0,
-        target: LatLng(currentLocation.latitude, currentLocation.longitude),
-        zoom: 16.0,
-
-      ),
-    ));
+  void loginCallback() {
+    widget.auth.getCurrentUser().then((user) {
+      setState(() {
+        _userId = user.uid.toString();
+      });
+    });
+    setState(() {
+      authStatus = AuthStatus.LOGGED_IN;
+    });
   }
 
-  Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      //statusBarColor: Color(0xFFb69862),
-      //statusBarBrightness: Brightness.light,
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      //systemNavigationBarColor: Color(0xFFb69862),
-      //systemNavigationBarColor: Colors.transparent,
-      //systemNavigationBarIconBrightness: Brightness.light,
-      )
-    );
+  void logoutCallback() {
+    setState(() {
+      authStatus = AuthStatus.NOT_LOGGED_IN;
+      _userId = "";
+    });
+  }
 
+  Widget buildWaitingScreen() {
     return Scaffold(
-      key: _scaffoldKey,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        brightness: Brightness.light,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: new IconThemeData(color: Colors.black, size: 100),
-        leading: IconButton(
-          iconSize: 32.0,
-          padding: EdgeInsets.only(left: 10),
-          icon: Icon(Icons.menu),
-          onPressed: () => _scaffoldKey.currentState.openDrawer(),
-        ),
-      ),
-
-      drawer: NavigationDrawer(),
-      body: _child,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Stack(
-        children: <Widget>[
-          // FAB for BOOKING
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: fabBook = Container(
-              padding: EdgeInsets.only(bottom: 20),
-              height: 84,
-              width: MediaQuery.of(context).size.width * 0.925,
-              child: FloatingActionButton.extended(
-                onPressed: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new BookView(),));},
-                heroTag: null,
-                label: new Text(
-                  "FAHRT BUCHEN",
-                  style: new TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  )
-                ),
-                //icon: const Icon(MdiIcons.plus),
-                backgroundColor: Color(0xFFb69862),
-                elevation: 0.0,
-                highlightElevation: 10,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(2.0))),
-                //splashColor: Colors.transparent,
-              )
-            )
-          ),
-          // FAB for LOCATION
-          Align(
-            alignment: Alignment.bottomRight,
-            child: fabLocation = Container(
-              //height: 50,
-              padding: EdgeInsets.only(bottom: 94, right: MediaQuery.of(context).size.width * 0.02),
-              child: FloatingActionButton(
-                onPressed: _currentLocation,
-                highlightElevation: 0,
-                elevation: 0,
-                mini: true,
-                child: Icon(MdiIcons.crosshairsGps),
-                backgroundColor: Colors.transparent,
-                foregroundColor: Colors.black,
-              )
-            )
-          ),
-        ]
+      body: Container(
+        alignment: Alignment.center,
+        child: CircularProgressIndicator(),
       ),
     );
-  } // Widget build
+  }
 
-  Widget mapWidget()=> GoogleMap(
-      mapType: MapType.normal,
-      myLocationEnabled: true,
-      myLocationButtonEnabled: false,
-      padding: EdgeInsets.only(bottom: 500, left: 500),
-      // markers: _createMarker(),
-      initialCameraPosition: CameraPosition(
-        target: LatLng(position.latitude, position.longitude),
-        zoom: 16.0,
-      ),
-      onMapCreated: (GoogleMapController controller) {
-        _controller.complete(controller);
-      },
-    );
-
-
-
+  @override
+  Widget build(BuildContext context) {
+    switch (authStatus) {
+      case AuthStatus.NOT_DETERMINED:
+        return buildWaitingScreen();
+        break;
+      case AuthStatus.NOT_LOGGED_IN:
+        return new LoginView(
+//          auth: widget.auth,
+//          loginCallback: loginCallback,
+        );
+        break;
+      case AuthStatus.LOGGED_IN:
+        if (_userId.length > 0 && _userId != null) {
+          return new Home(
+//            userId: _userId,
+//            auth: widget.auth,
+//            logoutCallback: logoutCallback,
+          );
+        } else
+          return buildWaitingScreen();
+        break;
+      default:
+        return buildWaitingScreen();
+    }
+  }
 }

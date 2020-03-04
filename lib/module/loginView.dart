@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
 import 'registerView.dart';
-import 'package:limowien_app/main.dart';
+import 'package:limowien_app/home.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -91,9 +91,7 @@ class _LoginView extends State<LoginView> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
+                  SizedBox(height: 15),
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
@@ -112,9 +110,7 @@ class _LoginView extends State<LoginView> {
                       hasFloatingPlaceholder: true,
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   TextFormField(
                     keyboardType: TextInputType.visiblePassword,
                     validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
@@ -134,9 +130,7 @@ class _LoginView extends State<LoginView> {
                       hasFloatingPlaceholder: true,
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
