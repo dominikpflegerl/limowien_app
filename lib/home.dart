@@ -41,7 +41,7 @@ class _Home extends State<Home> {
     // _child = RippleIndicator("Getting Location");
     getCurrentLocationOnStartup();
     super.initState();
-    Timer.run(() => _showRateDialog());
+    //Timer.run(() => _showRateDialog());
   }
 
   void getCurrentLocationOnStartup() async {

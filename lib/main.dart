@@ -5,11 +5,16 @@ import 'package:limowien_app/home.dart';
 // AUTH
 import 'package:limowien_app/services/auth.dart';
 import 'package:limowien_app/module/loginView.dart';
-import 'package:limowien_app/module/registerView.dart';
+import 'package:limowien_app/module/signupView.dart';
 
 void main(){
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
+    routes: <String, WidgetBuilder> {
+      '/loginView': (BuildContext context) => new LoginView(),
+      '/signupView' : (BuildContext context) => new SignUpView(),
+      '/homeView' : (BuildContext context) => new Home(),
+    },
     home: WelcomeView(), // slpashscreen.dart
   ));
 }

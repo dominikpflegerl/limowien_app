@@ -10,7 +10,7 @@ import 'package:limowien_app/home.dart';
 // implement verification
 // implement password forgotten feature
 
-class  EmptyAppBar  extends StatelessWidget implements PreferredSizeWidget {
+class EmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container();
@@ -19,15 +19,15 @@ class  EmptyAppBar  extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size(0.0,0.0);
 }
 
-class RegisterView extends StatefulWidget {
-  RegisterView({Key key, this.title}) : super(key: key);
+class SignUpView extends StatefulWidget {
+  SignUpView({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _RegisterView createState() => new _RegisterView();
+  _SignUpView createState() => new _SignUpView();
 }
 
-class _RegisterView extends State<RegisterView> {
+class _SignUpView extends State<SignUpView> {
   // To adjust the layout according to the screen size
   // so that our layout remains responsive ,we need to
   // calculate the screen height
@@ -243,7 +243,8 @@ class _RegisterView extends State<RegisterView> {
                     textColor: Colors.white,
                     padding: EdgeInsets.only(left: 40, right: 40, top: 15, bottom: 15),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                    onPressed: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new Home(),));},
+                    onPressed: () {Navigator.of(context).pushNamedAndRemoveUntil('/homeView', (Route<dynamic> route) => false);},
+                    //onPressed: () {Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Home(),));},
                   ),
                 ),
                 SizedBox(
@@ -268,7 +269,7 @@ class _RegisterView extends State<RegisterView> {
               style: TextStyle(color: Colors.grey),
             ),
             FlatButton(
-              onPressed: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LoginView(),));},
+              onPressed: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LoginView(),));},
               textColor: Colors.white,
               child: Text("Login"),
             )

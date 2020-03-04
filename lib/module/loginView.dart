@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
-import 'registerView.dart';
+import 'signupView.dart';
 import 'package:limowien_app/home.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -147,7 +147,7 @@ class _LoginView extends State<LoginView> {
                         textColor: Colors.white,
                         padding: EdgeInsets.only(left: 40, right: 40, top: 13, bottom: 13),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new Home(),));},
+                        onPressed: () {Navigator.of(context).pushNamedAndRemoveUntil('/homeView', (Route<dynamic> route) => false);},
                       )
                     ],
                   ),
@@ -163,7 +163,7 @@ class _LoginView extends State<LoginView> {
                         style: TextStyle(color: Colors.grey),
                       ),
                       FlatButton(
-                        onPressed: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new RegisterView(),));},
+                        onPressed: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SignUpView(),));},
                         textColor: Colors.white,
                         child: Text("Registrieren"),
                       )

@@ -67,8 +67,9 @@ class NavigationDrawer extends StatelessWidget {
                         new ListTile(
                           leading: new Icon(MdiIcons.logout,color: Colors.white),
                           title: new Text("Abmelden", style: new TextStyle(color: Colors.white),),
-                          onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new WelcomeView(),));},
-                        ),              new Divider(color: Colors.white),
+                          onTap: () {Navigator.pop(context); Navigator.of(context).pushNamedAndRemoveUntil('/loginView', (Route<dynamic> route) => false);},
+                        ),
+                        new Divider(color: Colors.white),
                         new ListTile(
                           leading: new Icon(MdiIcons.information,color: Colors.white),
                           title: new Text("Hilfe & Kontakt", style: new TextStyle(color: Colors.white),),

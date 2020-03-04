@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // statusbar color
+
+import 'package:limowien_app/module/loginView.dart';
+import 'package:limowien_app/module/signupView.dart';
+
 import 'delayed_animation.dart';
-
-import 'loginView.dart';
-import 'registerView.dart';
-
 import 'package:avatar_glow/avatar_glow.dart';
 
 class WelcomeView extends StatefulWidget {
@@ -51,31 +51,36 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    AvatarGlow(
-                      repeat: true,
-                      endRadius: 120,
-                      showTwoGlows: true,
-                      glowColor: Color(0xFFb69862),
-                      duration: Duration(seconds: 4), // AVD: 4 -> 4 sec, Mi A2: 40 -> 4 sec ??? NIGGA?
-                      repeatPauseDuration: Duration(seconds: 2),
-                      startDelay: Duration(seconds: 2),
-                      child: Material(
-                          elevation: 0.0,
-                          shape: CircleBorder(),
-                          child: CircleAvatar(
-                            backgroundColor: Color(0xFF000000),
-                            child: Image.asset('assets/images/logo.png', width: 70,),
-                            radius: 60.0,
-                          )
+                SizedBox(height: 20),
+                DelayedAnimation(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      AvatarGlow(
+                          repeat: true,
+                          endRadius: 100,
+                          showTwoGlows: false,
+                          glowColor: Color(0xFFb69862),
+                          duration: const Duration(seconds: 40),
+                          repeatPauseDuration: Duration(milliseconds: 500),
+                          startDelay: Duration(seconds: 0),
+                          child: Material(
+                              elevation: 0.0,
+                              shape: CircleBorder(),
+                              child: CircleAvatar(
+                                backgroundColor: Color(0xFF000000),
+                                child: Image.asset('assets/images/logo.png', width: 70,),
+                                radius: 60.0,
+                              )
+                          ),
+                          animate: true,
+                          curve: Curves.fastOutSlowIn
                       ),
-                      animate: true,
-                      curve: Curves.fastOutSlowIn,
-                    ),
-                  ],
+                    ],
+                  ),
+                  delay: delayedAmount + 500, // Avatar
                 ),
-                SizedBox(height: 10.0),
+                SizedBox(height: 30.0),
                 DelayedAnimation(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +91,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                           //fontWeight: FontWeight.bold,
                             fontFamily: 'TimesNewRoman',
                             fontSize: 44.0,
-                            color: Colors.grey,
+                            color: Colors.white70,
                             letterSpacing: 7
                         ),
                       ),
@@ -102,7 +107,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                       ),
                     ],
                   ),
-                  delay: delayedAmount + 1000,
+                  delay: delayedAmount + 750, // limowien
                 ),
                 DelayedAnimation(
                   child: Text(
@@ -111,27 +116,27 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                       //fontWeight: FontWeight.bold,
                         fontFamily: 'TimesNewRoman',
                         fontSize: 20.0,
-                        color: Colors.grey,
+                        color: Colors.white70,
                         letterSpacing: 2
                     ),
                   ),
                   delay: delayedAmount + 1000,
                 ),
-                SizedBox(height: 120.0),
+                SizedBox(height: 130.0),
                 DelayedAnimation(
                   child: GestureDetector(
-                    onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new RegisterView(),));},
+                    onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SignUpView(),));},
                     child: Transform.scale(
                       scale: _scale,
                       child: _animatedButtonUI,
                     ),
                   ),
-                  delay: delayedAmount + 2000,
+                  delay: delayedAmount + 1500,
                 ),
-                SizedBox(height: 50.0,),
+                SizedBox(height: 50.0),
                 DelayedAnimation(
                   child: GestureDetector(
-                    onTap: () {Navigator.pop(context); Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LoginView(),));},
+                    onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LoginView(),));},
                     child: Text(
                     "Ich habe bereits ein Konto".toUpperCase(),
                     style: TextStyle(
@@ -140,7 +145,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                         color: Color(0xFFFFFFFF)),
                     ),
                   ),
-                  delay: delayedAmount + 2000,
+                  delay: delayedAmount + 1500,
                 ),
               ],
             ),
