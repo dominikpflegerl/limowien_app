@@ -32,7 +32,9 @@ class _Home extends State<Home> {
   Widget _child;
   Container fabBook;
   Container fabLocation;
+
   Completer<GoogleMapController> _controller = Completer();
+
   var rating = 0.0;
   @override
 
@@ -162,13 +164,14 @@ class _Home extends State<Home> {
         backgroundColor: Colors.transparent,
         iconTheme: new IconThemeData(color: Colors.black, size: 100),
         leading: IconButton(
+          splashColor: Colors.transparent,
+          focusColor: Colors.transparent,
           iconSize: 32.0,
           padding: EdgeInsets.only(left: 10),
           icon: Icon(Icons.menu),
           onPressed: () => _scaffoldKey.currentState.openDrawer(),
         ),
       ),
-
       drawer: NavigationDrawer(),
       body: _child,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

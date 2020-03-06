@@ -12,7 +12,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 // implement verification
 // implement password forgotten feature
 
-class  EmptyAppBar  extends StatelessWidget implements PreferredSizeWidget {
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+  static double blockSizeHorizontal;
+  static double blockSizeVertical;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+  }
+}
+
+class EmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container();
@@ -145,7 +161,7 @@ class _LoginView extends State<LoginView> {
                         child: Text("LOGIN", style: TextStyle(fontSize: 18)),
                         color: Color(0xFFb69862),
                         textColor: Colors.white,
-                        padding: EdgeInsets.only(left: 40, right: 40, top: 13, bottom: 13),
+                        padding: EdgeInsets.only(left: 30, right: 30, top: 13, bottom: 13),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         onPressed: () {Navigator.of(context).pushNamedAndRemoveUntil('/homeView', (Route<dynamic> route) => false);},
                       )

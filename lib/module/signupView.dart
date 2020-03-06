@@ -229,7 +229,7 @@ class _SignUpView extends State<SignUpView> {
                   height: 20,
                 ),
                 Text(
-                  "Das Passwort muss mindestens 12 Zeichen lang sein, sowie Sonderzeichen und Zahlen enthalten.",
+                  "Das Passwort muss mindestens 8 Zeichen lang sein, sowie Sonderzeichen und Zahlen enthalten.",
                   style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
                 SizedBox(

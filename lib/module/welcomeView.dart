@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // statusbar color
+import 'package:flutter/widgets.dart';
 
 import 'package:limowien_app/module/loginView.dart';
 import 'package:limowien_app/module/signupView.dart';
 
 import 'delayed_animation.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+  static double blockSizeHorizontal;
+  static double blockSizeVertical;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+  }
+}
 
 class WelcomeView extends StatefulWidget {
   WelcomeView({Key key, this.title}) : super(key: key);
@@ -19,6 +36,8 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
   final int delayedAmount = 500;
   double _scale;
   AnimationController _controller;
+  double screenHeight;
+
   @override
   void initState() {
     _controller = AnimationController(
@@ -34,9 +53,10 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    screenHeight = MediaQuery.of(context).size.height;
     _scale = 1 - _controller.value;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
@@ -61,7 +81,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                           endRadius: 100,
                           showTwoGlows: false,
                           glowColor: Color(0xFFb69862),
-                          duration: const Duration(seconds: 40),
+                          duration: const Duration(seconds: 4),
                           repeatPauseDuration: Duration(milliseconds: 500),
                           startDelay: Duration(seconds: 0),
                           child: Material(
@@ -69,8 +89,10 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                               shape: CircleBorder(),
                               child: CircleAvatar(
                                 backgroundColor: Color(0xFF000000),
-                                child: Image.asset('assets/images/logo.png', width: 70,),
-                                radius: 60.0,
+                                child: Image.asset('assets/images/logo.png', width: SizeConfig.screenWidth / 6,),
+                                radius: SizeConfig.screenWidth / 6,
+                                //radius: SizeConfig.blockSizeVertical * 10,
+                                //radius: 70.0,
                               )
                           ),
                           animate: true,
@@ -80,7 +102,8 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                   ),
                   delay: delayedAmount + 500, // Avatar
                 ),
-                SizedBox(height: 30.0),
+                SizedBox(height: SizeConfig.blockSizeVertical * 5),
+                //SizedBox(height: 30.0),
                 DelayedAnimation(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -122,7 +145,8 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                   ),
                   delay: delayedAmount + 1000,
                 ),
-                SizedBox(height: 130.0),
+                SizedBox(height: SizeConfig.blockSizeVertical * 15),
+                //SizedBox(height: 130.0),
                 DelayedAnimation(
                   child: GestureDetector(
                     onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SignUpView(),));},
@@ -133,7 +157,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                   ),
                   delay: delayedAmount + 1500,
                 ),
-                SizedBox(height: 50.0),
+                SizedBox(height: SizeConfig.blockSizeVertical * 5),
                 DelayedAnimation(
                   child: GestureDetector(
                     onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LoginView(),));},
@@ -158,7 +182,8 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
     children: <Widget>[
       Container(
         height: 60,
-        width: 270,
+        width: SizeConfig.blockSizeHorizontal * 75,
+        //width: 270,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(88.0),
           color: Color(0xFFb69862),
@@ -167,7 +192,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
           child: Text(
             'REGISTRIEREN',
             style: TextStyle(
-              fontSize: 20.0,
+              fontSize: SizeConfig.blockSizeVertical * 3,
               fontWeight: FontWeight.bold,
               color: Color(0xFFFFFFFF),
             ),

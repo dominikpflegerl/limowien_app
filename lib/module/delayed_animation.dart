@@ -21,7 +21,7 @@ class _DelayedAnimationState extends State<DelayedAnimation>
     super.initState();
 
     _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 10000));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
     final curve =
     CurvedAnimation(curve: Curves.easeIn, parent: _controller);
     _animOffset =
