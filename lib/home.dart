@@ -10,18 +10,10 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // OWN
 import 'widgets/drawerWidget.dart';
-import 'routes/bookView.dart';
-import 'package:limowien_app/services/auth.dart';
-// Firebase
-import 'package:firebase_database/firebase_database.dart';
 
 class Home extends StatefulWidget {
-  Home({Key key, this.auth, this.userId, this.logoutCallback})
-      : super(key: key);
-
-  final BaseAuth auth;
-  final VoidCallback logoutCallback;
-  final String userId;
+  Home({Key key, this.title}) : super(key: key);
+  final String title;
 
   @override
   _Home createState() => _Home();
@@ -72,15 +64,6 @@ class _Home extends State<Home> {
 
       ),
     ));
-  }
-
-  signOut() async {
-    try {
-      await widget.auth.signOut();
-      widget.logoutCallback();
-    } catch (e) {
-      print(e);
-    }
   }
 
   void _showRateDialog() {
@@ -185,7 +168,7 @@ class _Home extends State<Home> {
                     height: 84,
                     width: MediaQuery.of(context).size.width * 0.925,
                     child: FloatingActionButton.extended(
-                      onPressed: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new BookView(),));},
+                      onPressed: () {Navigator.of(context).pushNamed('/bookView');},
                       heroTag: null,
                       label: new Text(
                           "FAHRT BUCHEN",

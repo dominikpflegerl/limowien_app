@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // home
-import 'package:limowien_app/module/welcomeView.dart';
 import 'package:limowien_app/home.dart';
+import 'package:limowien_app/module/welcomeView.dart';
 import 'package:limowien_app/routes/aboutView.dart';
 import 'package:limowien_app/routes/accountView.dart';
 import 'package:limowien_app/routes/bookView.dart';
@@ -11,7 +11,6 @@ import 'package:limowien_app/routes/historyView.dart';
 import 'package:limowien_app/routes/paymentView.dart';
 import 'package:limowien_app/routes/settingsView.dart';
 // AUTH
-import 'package:limowien_app/services/auth.dart';
 import 'package:limowien_app/module/loginView.dart';
 import 'package:limowien_app/module/signupView.dart';
 

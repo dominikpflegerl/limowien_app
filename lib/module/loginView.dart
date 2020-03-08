@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
-import 'signupView.dart';
-import 'package:limowien_app/home.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
 
 // TODO
 // hide logo if keyboard is open for visibilitgiy
@@ -179,7 +175,7 @@ class _LoginView extends State<LoginView> {
                         style: TextStyle(color: Colors.grey),
                       ),
                       FlatButton(
-                        onPressed: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SignUpView(),));},
+                        onPressed: () {Navigator.of(context).pushNamed('/registerView');},
                         textColor: Colors.white,
                         child: Text("Registrieren"),
                       )
