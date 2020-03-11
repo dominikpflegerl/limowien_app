@@ -301,7 +301,7 @@ class _RegisterView extends State<RegisterView> {
                   style: TextStyle(color: Colors.grey, fontSize: 12),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: _gap
                 ),
                 SizedBox(
                   width: double.infinity, // match_parent
@@ -315,7 +315,7 @@ class _RegisterView extends State<RegisterView> {
                         borderRadius: BorderRadius.circular(5)),
                     onPressed: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/homeView', (Route<dynamic> route) => false);
+                          '/home', (Route<dynamic> route) => false);
                     },
                     //onPressed: () {Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Home(),));},
                   ),

@@ -48,6 +48,36 @@ class _LoginView extends State<LoginView> {
   // calculate the screen height
   double screenHeight;
 
+  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  TextEditingController emailInputController;
+  TextEditingController passwordInputController;
+
+  @override
+  initState() {
+    emailInputController = new TextEditingController();
+    passwordInputController = new TextEditingController();
+    super.initState();
+  }
+
+  String emailValidator(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+      return 'E-Mail-Format ist ungültig';
+    } else {
+      return null;
+    }
+  }
+
+  String passwordValidator(String value) {
+    if (value.length < 8) {
+      return 'Das Passwort muss länger als 8 Zeichen sein.';
+    } else {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -75,7 +105,7 @@ class _LoginView extends State<LoginView> {
 
   Widget pageTitle() {
     return Padding(
-        padding: EdgeInsets.symmetric(vertical: 40),
+        padding: EdgeInsets.only(top: 40),
         child: Align(
           alignment: Alignment.topCenter,
           child: Image.asset('assets/images/limowien_color2_nobg.png', width: MediaQuery.of(context).size.width/1.33),
@@ -84,11 +114,15 @@ class _LoginView extends State<LoginView> {
   }
 
   Widget loginScreen(BuildContext context) {
+    double _gap = 20;
+
     return Column(
       children: <Widget>[
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 33),
+        Form(
+          key: _loginFormKey,
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 40, left: 33, right: 33),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -103,14 +137,13 @@ class _LoginView extends State<LoginView> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  SizedBox(height: _gap),
                   TextFormField(
+                    controller: emailInputController,
+                    validator: emailValidator,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
-                    //onSaved: (value) => _email = value.trim(),
-
+                    //style
                     style: TextStyle(color: Colors.white),
-                    autocorrect: true,
                     cursorColor: Color(0xFFb69862),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -122,12 +155,12 @@ class _LoginView extends State<LoginView> {
                       hasFloatingPlaceholder: true,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: _gap),
                   TextFormField(
+                    controller: passwordInputController,
+                    validator: passwordValidator,
                     keyboardType: TextInputType.visiblePassword,
-                    validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
-                    //onSaved: (value) => _password = value.trim(),
-
+                    //style
                     style: TextStyle(color: Colors.white),
                     cursorColor: Color(0xFFb69862),
                     obscureText: true,
@@ -142,7 +175,7 @@ class _LoginView extends State<LoginView> {
                       hasFloatingPlaceholder: true,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: _gap),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
@@ -159,11 +192,11 @@ class _LoginView extends State<LoginView> {
                         textColor: Colors.white,
                         padding: EdgeInsets.only(left: 30, right: 30, top: 13, bottom: 13),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {Navigator.of(context).pushNamedAndRemoveUntil('/homeView', (Route<dynamic> route) => false);},
+                        onPressed: () {Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);},
                       )
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: _gap),
                   Divider(color: Colors.grey),
                   SizedBox(height: 10),
                   Row(
@@ -185,6 +218,7 @@ class _LoginView extends State<LoginView> {
               ),
             ),
           ),
+        )
       ],
     );
   }

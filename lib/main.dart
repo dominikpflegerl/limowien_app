@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 // home
-import 'package:limowien_app/home.dart';
-import 'package:limowien_app/module/welcomeView.dart';
-import 'package:limowien_app/routes/aboutView.dart';
-import 'package:limowien_app/routes/accountView.dart';
-import 'package:limowien_app/routes/bookView.dart';
-import 'package:limowien_app/routes/faqView.dart';
-import 'package:limowien_app/routes/fleetView.dart';
-import 'package:limowien_app/routes/historyView.dart';
-import 'package:limowien_app/routes/paymentView.dart';
-import 'package:limowien_app/routes/settingsView.dart';
+import 'package:limowien_app/screens/home.dart';
+import 'package:limowien_app/views/aboutView.dart';
+import 'package:limowien_app/views/accountView.dart';
+import 'package:limowien_app/screens/order.dart';
+import 'package:limowien_app/views/faqView.dart';
+import 'package:limowien_app/views/fleetView.dart';
+import 'package:limowien_app/views/historyView.dart';
+import 'package:limowien_app/views/paymentView.dart';
+import 'package:limowien_app/views/settingsView.dart';
 // AUTH
-import 'package:limowien_app/module/loginView.dart';
-import 'package:limowien_app/module/registerView.dart';
+import 'package:limowien_app/screens/welcome.dart';
+import 'package:limowien_app/screens/auth/loginView.dart';
+import 'package:limowien_app/screens/auth/registerView.dart';
 
 void main(){
   runApp(new MaterialApp(
@@ -23,9 +23,9 @@ void main(){
       '/loginView': (BuildContext context) => new LoginView(),
       '/registerView' : (BuildContext context) => new RegisterView(),
       // Home
-      '/homeView' : (BuildContext context) => new Home(),
+      '/home' : (BuildContext context) => new Home(),
       // Module
-      '/bookingView' : (BuildContext context) => new BookView(),
+      '/bookView' : (BuildContext context) => new BookView(),
       '/accountView' : (BuildContext context) => new AccountView(),
       '/paymentView' : (BuildContext context) => new PaymentView(),
       '/historyView' : (BuildContext context) => new HistoryView(),

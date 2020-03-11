@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // statusbar color
 import 'package:flutter/widgets.dart';
 
-import 'delayed_animation.dart';
+import 'package:limowien_app/module/delayed_animation.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 
 class SizeConfig {
