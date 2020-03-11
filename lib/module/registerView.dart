@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
@@ -217,6 +218,7 @@ class _RegisterView extends State<RegisterView> {
                 TextFormField(
                     controller: emailInputController,
                     validator: emailValidator,
+                    keyboardType: TextInputType.emailAddress,
                     //style
                     style: TextStyle(color: Colors.white),
                     cursorColor: Color(0xFFb69862),
@@ -254,6 +256,7 @@ class _RegisterView extends State<RegisterView> {
                       child: TextFormField(
                           controller: phoneInputController,
                           validator: phoneValidator,
+                          keyboardType: TextInputType.phone,
                           //style
                           style: TextStyle(color: Colors.white),
                           cursorColor: Color(0xFFb69862),
@@ -275,6 +278,7 @@ class _RegisterView extends State<RegisterView> {
                 TextFormField(
                     controller: passwordInputController,
                     validator: passwordValidator,
+                    keyboardType: TextInputType.visiblePassword,
                     //style
                     obscureText: true,
                     style: TextStyle(color: Colors.white),

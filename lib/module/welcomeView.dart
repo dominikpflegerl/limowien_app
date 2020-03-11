@@ -62,6 +62,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Color(0xFF221f1c),
           body: Center(
             child: Column(
