@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:splashscreen/splashscreen.dart';
 // home
 import 'package:limowien_app/screens/home.dart';
 import 'package:limowien_app/views/aboutView.dart';
@@ -34,6 +37,7 @@ void main(){
       '/aboutView' : (BuildContext context) => new AboutView(),
       '/faqView' : (BuildContext context) => new FAQView(),
     },
+    //home: new Home(userID: "1", userMail: "test@test") // use it to skip auth
     home: new RootPage(auth: new Auth())
   )
   );
@@ -47,7 +51,6 @@ enum AuthStatus {
 
 class RootPage extends StatefulWidget {
   RootPage({this.auth});
-
   final BaseAuth auth;
 
   @override
@@ -58,6 +61,8 @@ class _RootPageState extends State<RootPage> {
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   String _userID = "";
   String _userMail = "";
+  String _userFirstName = "";
+  String _userLastName = "";
 
   @override
   void initState() {
@@ -72,6 +77,7 @@ class _RootPageState extends State<RootPage> {
         authStatus = user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
       });
     });
+    sleep(Duration(seconds: 1));
   }
 
   void loginCallback() {
@@ -91,15 +97,28 @@ class _RootPageState extends State<RootPage> {
       authStatus = AuthStatus.NOT_LOGGED_IN;
       _userID = "";
       _userMail = "";
+      _userFirstName = "";
+      _userLastName ="";
     });
   }
 
   Widget buildWaitingScreen() {
-    return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        child: CircularProgressIndicator(),
+    return SplashScreen(
+      seconds: 100,
+      title: new Text('limowien',
+        style: new TextStyle(
+          color: Color(0xFFdfddde),
+          fontFamily: 'TimesNewRoman',
+          //fontWeight: FontWeight.bold,
+          fontSize: 50.0,
+          height: 2,
+        ),
       ),
+      image: new Image.asset('assets/images/logo.png'),
+      backgroundColor: Color(0xFF221f1c),
+      styleTextUnderTheLoader: new TextStyle(),
+      photoSize: 80.0,
+      loaderColor: Color(0xFFE2E0E1FF),
     );
   }
 
@@ -119,6 +138,8 @@ class _RootPageState extends State<RootPage> {
           print('AuthStatus.LOGGED_IN');
           return new Home(
             userID: _userID,
+            //userFirstName: _userFirstName,
+            //userLastName: _userLastName,
             userMail: _userMail,
             auth: widget.auth,
             logoutCallback: logoutCallback,

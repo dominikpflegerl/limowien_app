@@ -106,24 +106,28 @@ class _RegisterView extends State<RegisterView> {
   }
 
   Widget pageTitle() {
-    return Padding(
-        padding: EdgeInsets.only(top: 40),
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Image.asset('assets/images/limowien_color2_nobg.png',
-              width: MediaQuery.of(context).size.width / 1.33),
-        ));
+    if (MediaQuery.of(context).viewInsets.bottom == 0) {
+      return Padding(
+          padding: EdgeInsets.only(top: 40, bottom: 20),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Image.asset('assets/images/limowien_color2_nobg.png', width: MediaQuery.of(context).size.width/1.33),
+          )
+      );
+    } else {
+      return new Container(height: 0.0);
+    }
   }
 
   Widget registerScreen(BuildContext context) {
-    bool _value1 = false;
-    bool _value2 = false;
-
-    //we omitted the brackets '{}' and are using fat arrow '=>' instead, this is dart syntax
-    void _value1Changed(bool value) => setState(() => _value1 = value);
-    void _value2Changed(bool value) => setState(() => _value2 = value);
-
-    String selected;
+//    bool _value1 = false;
+//    bool _value2 = false;
+//
+//    //we omitted the brackets '{}' and are using fat arrow '=>' instead, this is dart syntax
+//    void _value1Changed(bool value) => setState(() => _value1 = value);
+//    void _value2Changed(bool value) => setState(() => _value2 = value);
+//
+//    String selected;
     double _gap = 15;
 
     return Column(
@@ -131,7 +135,7 @@ class _RegisterView extends State<RegisterView> {
         Form(
           key: _registerFormKey,
           child: Padding(
-            padding: const EdgeInsets.only(top: 40, left: 33, right: 33),
+            padding: const EdgeInsets.only(top: 20, left: 33, right: 33),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[

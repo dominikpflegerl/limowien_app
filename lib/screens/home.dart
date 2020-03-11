@@ -190,7 +190,7 @@ class _Home extends State<Home> {
                       onPressed: () {Navigator.of(context).pushNamed('/bookView');},
                       heroTag: null,
                       label: new Text(
-                          widget.userMail,
+                          "Fahrt buchen".toUpperCase(),
                           style: new TextStyle(
                             fontSize: 20,
                             color: Colors.white,

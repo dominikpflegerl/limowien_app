@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:limowien_app/screens/home.dart';
+import 'package:limowien_app/services/firebase_auth.dart';
 
 // TODO
 // hide logo if keyboard is open for visibilitgiy
@@ -37,9 +38,9 @@ class EmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class LoginView extends StatefulWidget {
-  LoginView({Key key, this.title}) : super(key: key);
+  LoginView({Key key, this.title, this.auth}) : super(key: key);
   final String title;
-  final _formKey = new GlobalKey<FormState>();
+  final BaseAuth auth;
 
   @override
   _LoginView createState() => new _LoginView();
@@ -107,13 +108,17 @@ class _LoginView extends State<LoginView> {
   }
 
   Widget pageTitle() {
-    return Padding(
-        padding: EdgeInsets.only(top: 40),
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Image.asset('assets/images/limowien_color2_nobg.png', width: MediaQuery.of(context).size.width/1.33),
-        )
-    );
+    if (MediaQuery.of(context).viewInsets.bottom == 0) {
+      return Padding(
+          padding: EdgeInsets.only(top: 40),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Image.asset('assets/images/limowien_color2_nobg.png', width: MediaQuery.of(context).size.width/1.33),
+          )
+      );
+    } else {
+      return new Container(height: 0.0);
+    }
   }
 
   Widget loginScreen(BuildContext context) {
@@ -196,7 +201,9 @@ class _LoginView extends State<LoginView> {
                         padding: EdgeInsets.only(left: 30, right: 30, top: 13, bottom: 13),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                         onPressed: () {
+
                           if (_loginFormKey.currentState.validate()) {
+                            //widget.auth.signIn(emailInputController.text, passwordInputController.text).then((user));
                             FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
                                 email: emailInputController.text,
