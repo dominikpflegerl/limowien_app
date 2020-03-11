@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // statusbar color
 import 'package:flutter/widgets.dart';
 
-import 'package:limowien_app/module/loginView.dart';
-import 'package:limowien_app/module/signupView.dart';
-
-import 'delayed_animation.dart';
+import 'package:limowien_app/module/delayed_animation.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 
 class SizeConfig {
@@ -65,6 +62,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Color(0xFF221f1c),
           body: Center(
             child: Column(
@@ -91,8 +89,6 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                                 backgroundColor: Color(0xFF000000),
                                 child: Image.asset('assets/images/logo.png', width: SizeConfig.screenWidth / 6,),
                                 radius: SizeConfig.screenWidth / 6,
-                                //radius: SizeConfig.blockSizeVertical * 10,
-                                //radius: 70.0,
                               )
                           ),
                           animate: true,
@@ -103,7 +99,6 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                   delay: delayedAmount + 500, // Avatar
                 ),
                 SizedBox(height: SizeConfig.blockSizeVertical * 5),
-                //SizedBox(height: 30.0),
                 DelayedAnimation(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -146,10 +141,9 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                   delay: delayedAmount + 1000,
                 ),
                 SizedBox(height: SizeConfig.blockSizeVertical * 15),
-                //SizedBox(height: 130.0),
                 DelayedAnimation(
                   child: GestureDetector(
-                    onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SignUpView(),));},
+                    onTap: () {Navigator.of(context).pushNamed('/registerView');},
                     child: Transform.scale(
                       scale: _scale,
                       child: _animatedButtonUI,
@@ -160,7 +154,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                 SizedBox(height: SizeConfig.blockSizeVertical * 5),
                 DelayedAnimation(
                   child: GestureDetector(
-                    onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LoginView(),));},
+                    onTap: () {Navigator.of(context).pushNamed('/loginView');},
                     child: Text(
                     "Ich habe bereits ein Konto".toUpperCase(),
                     style: TextStyle(

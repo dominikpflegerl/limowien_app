@@ -8,8 +8,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-// OWN
-import 'widgets/drawerWidget.dart';
+// Navigation Drawer
+import 'package:limowien_app/widgets/drawerWidget.dart';
 
 class Home extends StatefulWidget {
   Home({Key key, this.title}) : super(key: key);
