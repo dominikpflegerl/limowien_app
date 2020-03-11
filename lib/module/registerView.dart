@@ -13,8 +13,9 @@ class EmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container();
   }
+
   @override
-  Size get preferredSize => Size(0.0,0.0);
+  Size get preferredSize => Size(0.0, 0.0);
 }
 
 class RegisterView extends StatefulWidget {
@@ -67,6 +68,22 @@ class _RegisterView extends State<RegisterView> {
     }
   }
 
+  String phoneValidator(String value) {
+    if (value.length < 8) {
+      return 'Die Nummer muss länger als 8 Zeichen sein.';
+    } else {
+      return null;
+    }
+  }
+
+  String inputValidator(String value) {
+    if (value.length < 8) {
+      return 'Die Eingabe ist ungultüg.';
+    } else {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -77,29 +94,24 @@ class _RegisterView extends State<RegisterView> {
     screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      primary: true,
-      appBar:  EmptyAppBar (),
-      backgroundColor: Color(0xFF221f1c),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            pageTitle(),
-            registerScreen(context)
-          ],
-        )
-      )
-    );
+        resizeToAvoidBottomInset: true,
+        primary: true,
+        appBar: EmptyAppBar(),
+        backgroundColor: Color(0xFF221f1c),
+        body: SingleChildScrollView(
+            child: Column(
+          children: <Widget>[pageTitle(), registerScreen(context)],
+        )));
   }
 
   Widget pageTitle() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 40),
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Image.asset('assets/images/limowien_color2_nobg.png', width: MediaQuery.of(context).size.width/1.33),
-      )
-    );
+        padding: EdgeInsets.only(top: 40),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Image.asset('assets/images/limowien_color2_nobg.png',
+              width: MediaQuery.of(context).size.width / 1.33),
+        ));
   }
 
   Widget registerScreen(BuildContext context) {
@@ -118,7 +130,7 @@ class _RegisterView extends State<RegisterView> {
         Form(
           key: _registerFormKey,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 33),
+            padding: const EdgeInsets.only(top: 40, left: 33, right: 33),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -162,51 +174,62 @@ class _RegisterView extends State<RegisterView> {
                   children: <Widget>[
                     Flexible(
                       child: TextFormField(
+                          controller: firstNameInputController,
+                          validator: inputValidator,
+                          //style
                           style: TextStyle(color: Colors.white),
                           cursorColor: Color(0xFFb69862),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFb69862))),
-                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xFFb69862))),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)),
                             labelText: "Vorname",
-                            labelStyle: TextStyle(color: Colors.white), // style of above set
+                            labelStyle: TextStyle(color: Colors.white),
                             hasFloatingPlaceholder: true,
-                          )
-                      ),
+                          )),
                     ),
                     SizedBox(width: _gap),
                     Flexible(
                       child: TextFormField(
+                          controller: lastNameInputController,
+                          validator: inputValidator,
+                          //style
                           style: TextStyle(color: Colors.white),
                           cursorColor: Color(0xFFb69862),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFb69862))),
-                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xFFb69862))),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)),
                             labelText: "Nachname",
-                            labelStyle: TextStyle(color: Colors.white), // style of above set
+                            labelStyle: TextStyle(color: Colors.white),
                             hasFloatingPlaceholder: true,
-                          )
-                      ),
+                          )),
                     ),
                   ],
                 ),
                 SizedBox(height: _gap),
                 TextFormField(
+                    controller: emailInputController,
+                    validator: emailValidator,
+                    //style
                     style: TextStyle(color: Colors.white),
                     cursorColor: Color(0xFFb69862),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFb69862))),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFb69862))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
                       labelText: "E-Mail",
-                      labelStyle: TextStyle(color: Colors.white), // style of above set
+                      labelStyle: TextStyle(color: Colors.white),
                       hasFloatingPlaceholder: true,
-                    )
-                ),
+                    )),
                 SizedBox(height: _gap),
                 Row(
                   children: <Widget>[
@@ -229,36 +252,43 @@ class _RegisterView extends State<RegisterView> {
                     Flexible(
                       flex: 3,
                       child: TextFormField(
+                          controller: phoneInputController,
+                          validator: phoneValidator,
+                          //style
                           style: TextStyle(color: Colors.white),
                           cursorColor: Color(0xFFb69862),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFb69862))),
-                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xFFb69862))),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white)),
                             labelText: "Telefonnummer",
-                            labelStyle: TextStyle(color: Colors.white), // style of above set
+                            labelStyle: TextStyle(color: Colors.white),
                             hasFloatingPlaceholder: true,
-                          )
-                      ),
+                          )),
                     ),
                   ],
                 ),
                 SizedBox(height: _gap),
                 TextFormField(
+                    controller: passwordInputController,
+                    validator: passwordValidator,
+                    //style
                     obscureText: true,
                     style: TextStyle(color: Colors.white),
                     cursorColor: Color(0xFFb69862),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFb69862))),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFb69862))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
                       labelText: "Passwort",
-                      labelStyle: TextStyle(color: Colors.white), // style of above set
+                      labelStyle: TextStyle(color: Colors.white),
                       hasFloatingPlaceholder: true,
-                    )
-                ),
+                    )),
                 SizedBox(
                   height: 20,
                 ),
@@ -275,9 +305,14 @@ class _RegisterView extends State<RegisterView> {
                     child: Text("ABSENDEN", style: TextStyle(fontSize: 18)),
                     color: Color(0xFFb69862),
                     textColor: Colors.white,
-                    padding: EdgeInsets.only(left: 40, right: 40, top: 15, bottom: 15),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                    onPressed: () {Navigator.of(context).pushNamedAndRemoveUntil('/homeView', (Route<dynamic> route) => false);},
+                    padding: EdgeInsets.only(
+                        left: 40, right: 40, top: 15, bottom: 15),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/homeView', (Route<dynamic> route) => false);
+                    },
                     //onPressed: () {Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Home(),));},
                   ),
                 ),
@@ -286,10 +321,13 @@ class _RegisterView extends State<RegisterView> {
                 ),
                 Text(
                   "Mit der Registrierung akzeptieren Sie die AGB, sowie unsere Datenschutzhinweise.",
-                  style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 20),
-                Divider(color: Colors.grey,)
+                Divider(
+                  color: Colors.grey,
+                )
               ],
             ),
           ),
@@ -303,7 +341,9 @@ class _RegisterView extends State<RegisterView> {
               style: TextStyle(color: Colors.grey),
             ),
             FlatButton(
-              onPressed: () {Navigator.of(context).pushNamed('/loginView');},
+              onPressed: () {
+                Navigator.of(context).pushNamed('/loginView');
+              },
               textColor: Colors.white,
               child: Text("Login"),
             )
