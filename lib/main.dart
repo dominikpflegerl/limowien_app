@@ -18,13 +18,12 @@ void main(){
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
     routes: <String, WidgetBuilder> {
-      // Launch Views ?
+      '/home' : (BuildContext context) => new Home(),
+      // Auth Views
       '/welcomeView': (BuildContext context) => new WelcomeView(),
       '/loginView': (BuildContext context) => new LoginView(),
       '/registerView' : (BuildContext context) => new RegisterView(),
-      // Home
-      '/home' : (BuildContext context) => new Home(),
-      // Module
+      // Views for Home & NavigationDrawer
       '/bookView' : (BuildContext context) => new BookView(),
       '/accountView' : (BuildContext context) => new AccountView(),
       '/paymentView' : (BuildContext context) => new PaymentView(),
