@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:limowien_app/screens/home.dart';
 
 class NavigationDrawer extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return new Drawer(
@@ -53,11 +56,36 @@ class NavigationDrawer extends StatelessWidget {
                           onTap: () {Navigator.pop(context); Navigator.pushNamed(context, '/settingsView');},
                         ),
                         new Divider(color: Colors.white),
+
+
+
+
+
+
                         new ListTile(
                           leading: new Icon(MdiIcons.logout,color: Colors.white),
                           title: new Text("Abmelden", style: new TextStyle(color: Colors.white),),
-                          onTap: () {Navigator.pop(context); Navigator.of(context).pushNamedAndRemoveUntil('/loginView', (Route<dynamic> route) => false);},
+                          onTap: () {
+                            FirebaseAuth auth = FirebaseAuth.instance;
+                            auth.signOut().then((res) {
+                              Navigator.pop(context); Navigator.of(context).pushNamedAndRemoveUntil('/welcomeView', (Route<dynamic> route) => false);
+                              print('User has been logged out!');
+                            });
+                          },
                         ),
+
+
+
+
+
+
+
+
+
+
+
+
+
                         new Divider(color: Colors.white),
                         new ListTile(
                           leading: new Icon(MdiIcons.information,color: Colors.white),

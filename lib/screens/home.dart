@@ -10,11 +10,13 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // Navigation Drawer
 import 'package:limowien_app/widgets/drawerWidget.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Home extends StatefulWidget {
-  Home({Key key, this.title}) : super(key: key);
+  Home({Key key, this.title, this.uid}) : super(key: key);
   final String title;
-
+  final String uid;
   @override
   _Home createState() => _Home();
 }
@@ -25,6 +27,7 @@ class _Home extends State<Home> {
   Container fabBook;
   Container fabLocation;
 
+  final FirebaseDatabase _database = FirebaseDatabase.instance;
   Completer<GoogleMapController> _controller = Completer();
 
   var rating = 0.0;

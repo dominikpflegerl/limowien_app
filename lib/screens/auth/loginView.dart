@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:limowien_app/screens/home.dart';
+
 // TODO
 // hide logo if keyboard is open for visibilitgiy
 // implement FireBase Auth
@@ -192,7 +195,21 @@ class _LoginView extends State<LoginView> {
                         textColor: Colors.white,
                         padding: EdgeInsets.only(left: 30, right: 30, top: 13, bottom: 13),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);},
+                        onPressed: () {
+                          if (_loginFormKey.currentState.validate()) {
+                            FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                                email: emailInputController.text,
+                                password: passwordInputController.text)
+                                .then((result) {
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home(uid: result.user.uid)),);
+                                  print('User has been logged in!');
+                                  print('User has been logged in!');
+                                  print('User has been logged in!');
+                                 })
+                                .catchError((err) => print(err));
+                          }
+                        },
                       )
                     ],
                   ),
