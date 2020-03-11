@@ -91,8 +91,6 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                                 backgroundColor: Color(0xFF000000),
                                 child: Image.asset('assets/images/logo.png', width: SizeConfig.screenWidth / 6,),
                                 radius: SizeConfig.screenWidth / 6,
-                                //radius: SizeConfig.blockSizeVertical * 10,
-                                //radius: 70.0,
                               )
                           ),
                           animate: true,
@@ -103,7 +101,6 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                   delay: delayedAmount + 500, // Avatar
                 ),
                 SizedBox(height: SizeConfig.blockSizeVertical * 5),
-                //SizedBox(height: 30.0),
                 DelayedAnimation(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +143,6 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                   delay: delayedAmount + 1000,
                 ),
                 SizedBox(height: SizeConfig.blockSizeVertical * 15),
-                //SizedBox(height: 130.0),
                 DelayedAnimation(
                   child: GestureDetector(
                     onTap: () {Navigator.of(context).pushNamed('/registerView');},
