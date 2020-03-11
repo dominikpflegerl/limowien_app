@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // statusbar color
 import 'package:flutter/widgets.dart';
 
-import 'package:limowien_app/module/loginView.dart';
-import 'package:limowien_app/module/registerView.dart';
-
 import 'delayed_animation.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 
