@@ -17,19 +17,55 @@ class EmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size(0.0,0.0);
 }
 
-class SignUpView extends StatefulWidget {
-  SignUpView({Key key, this.title}) : super(key: key);
+class RegisterView extends StatefulWidget {
+  RegisterView({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _SignUpView createState() => new _SignUpView();
+  _RegisterView createState() => new _RegisterView();
 }
 
-class _SignUpView extends State<SignUpView> {
+class _RegisterView extends State<RegisterView> {
   // To adjust the layout according to the screen size
   // so that our layout remains responsive ,we need to
   // calculate the screen height
   double screenHeight;
+
+  final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
+  TextEditingController firstNameInputController;
+  TextEditingController lastNameInputController;
+  TextEditingController emailInputController;
+  TextEditingController phoneInputController;
+  TextEditingController passwordInputController;
+
+  @override
+  initState() {
+    firstNameInputController = new TextEditingController();
+    lastNameInputController = new TextEditingController();
+    emailInputController = new TextEditingController();
+    phoneInputController = new TextEditingController();
+    passwordInputController = new TextEditingController();
+    super.initState();
+  }
+
+  String emailValidator(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+      return 'E-Mail-Format ist ungültig';
+    } else {
+      return null;
+    }
+  }
+
+  String passwordValidator(String value) {
+    if (value.length < 8) {
+      return 'Das Passwort muss länger als 8 Zeichen sein.';
+    } else {
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +115,8 @@ class _SignUpView extends State<SignUpView> {
 
     return Column(
       children: <Widget>[
-        Container(
-          //padding: EdgeInsets.only(top: 200),
+        Form(
+          key: _registerFormKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 33),
             child: Column(

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart'; // statusbar color
 import 'package:flutter/widgets.dart';
 
 import 'package:limowien_app/module/loginView.dart';
-import 'package:limowien_app/module/signupView.dart';
+import 'package:limowien_app/module/registerView.dart';
 
 import 'delayed_animation.dart';
 import 'package:avatar_glow/avatar_glow.dart';
@@ -149,7 +149,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                 //SizedBox(height: 130.0),
                 DelayedAnimation(
                   child: GestureDetector(
-                    onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new SignUpView(),));},
+                    onTap: () {Navigator.of(context).pushNamed('/registerView');},
                     child: Transform.scale(
                       scale: _scale,
                       child: _animatedButtonUI,
@@ -160,7 +160,7 @@ class _WelcomeView extends State<WelcomeView> with SingleTickerProviderStateMixi
                 SizedBox(height: SizeConfig.blockSizeVertical * 5),
                 DelayedAnimation(
                   child: GestureDetector(
-                    onTap: () {Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) => new LoginView(),));},
+                    onTap: () {Navigator.of(context).pushNamed('/loginView');},
                     child: Text(
                     "Ich habe bereits ein Konto".toUpperCase(),
                     style: TextStyle(

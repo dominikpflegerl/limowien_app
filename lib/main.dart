@@ -12,7 +12,7 @@ import 'package:limowien_app/routes/paymentView.dart';
 import 'package:limowien_app/routes/settingsView.dart';
 // AUTH
 import 'package:limowien_app/module/loginView.dart';
-import 'package:limowien_app/module/signupView.dart';
+import 'package:limowien_app/module/registerView.dart';
 
 void main(){
   runApp(new MaterialApp(
@@ -21,7 +21,7 @@ void main(){
       // Launch Views ?
       '/welcomeView': (BuildContext context) => new WelcomeView(),
       '/loginView': (BuildContext context) => new LoginView(),
-      '/signupView' : (BuildContext context) => new SignUpView(),
+      '/registerView' : (BuildContext context) => new RegisterView(),
       // Home
       '/homeView' : (BuildContext context) => new Home(),
       // Module
