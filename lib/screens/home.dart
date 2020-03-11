@@ -12,11 +12,15 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:limowien_app/widgets/drawerWidget.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:limowien_app/services/firebase_auth.dart';
 
 class Home extends StatefulWidget {
-  Home({Key key, this.title, this.uid}) : super(key: key);
+  Home({Key key, this.title, this.userID, this.userMail, this.auth, this.logoutCallback}) : super(key: key);
   final String title;
-  final String uid;
+  final BaseAuth auth;
+  final VoidCallback logoutCallback;
+  final String userID;
+  final String userMail;
   @override
   _Home createState() => _Home();
 }
@@ -31,6 +35,9 @@ class _Home extends State<Home> {
   Completer<GoogleMapController> _controller = Completer();
 
   var rating = 0.0;
+
+  get userMail => widget.userMail;
+  get userID => widget.userID;
   @override
 
   void initState() {
@@ -67,6 +74,15 @@ class _Home extends State<Home> {
 
       ),
     ));
+  }
+
+  signOut() async {
+    try {
+      await widget.auth.signOut();
+      widget.logoutCallback();
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _showRateDialog() {
@@ -158,7 +174,7 @@ class _Home extends State<Home> {
           onPressed: () => _scaffoldKey.currentState.openDrawer(),
         ),
       ),
-      drawer: NavigationDrawer(),
+      drawer: NavigationDrawer(userMail: userMail, userName: userID),
       body: _child,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Stack(
@@ -174,7 +190,7 @@ class _Home extends State<Home> {
                       onPressed: () {Navigator.of(context).pushNamed('/bookView');},
                       heroTag: null,
                       label: new Text(
-                          "FAHRT BUCHEN",
+                          widget.userMail,
                           style: new TextStyle(
                             fontSize: 20,
                             color: Colors.white,

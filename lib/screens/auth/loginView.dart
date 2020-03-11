@@ -202,7 +202,7 @@ class _LoginView extends State<LoginView> {
                                 email: emailInputController.text,
                                 password: passwordInputController.text)
                                 .then((result) {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home(uid: result.user.uid)),);
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home(userID: result.user.uid)),);
                                   print('User has been logged in!');
                                   print('User has been logged in!');
                                   print('User has been logged in!');
