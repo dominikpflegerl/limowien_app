@@ -34,8 +34,8 @@ dependencies:
   avatar_glow:
   package_info:
   flutter_rating_bar:
-# Firebase
 
+# Firebase
   firebase_database:
   firebase_auth:
 

@@ -97,30 +97,30 @@ class _SignUpView extends State<SignUpView> {
                     ),
                   ),
                 ),
-                SizedBox(height: _gap),
-                DropdownButtonFormField<String>(
-
-                  value: selected,
-                  selectedItemBuilder: (context) {
-                    return [Text("xyz")];
-                  },
-                  items: ["Herr", "Frau", "sonstiges"]
-                      .map((label) => DropdownMenuItem(
-                    child: Text(label),
-                    value: label,
-                  ))
-                      .toList(),
-                  onChanged: (value) {setState(() => selected = value);},
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    isDense: true,
-                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFb69862))),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-                    labelText: "Anrede",
-                    labelStyle: TextStyle(color: Colors.white), // style of above set
-                    hasFloatingPlaceholder: true,
-                  )
-                ),
+//                SizedBox(height: _gap),
+//                DropdownButtonFormField<String>(
+//
+//                  value: selected,
+//                  selectedItemBuilder: (context) {
+//                    return [Text("xyz")];
+//                  },
+//                  items: ["Herr", "Frau", "sonstiges"]
+//                      .map((label) => DropdownMenuItem(
+//                    child: Text(label),
+//                    value: label,
+//                  ))
+//                      .toList(),
+//                  onChanged: (value) {setState(() => selected = value);},
+//                  decoration: InputDecoration(
+//                    border: OutlineInputBorder(),
+//                    isDense: true,
+//                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFb69862))),
+//                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+//                    labelText: "Anrede",
+//                    labelStyle: TextStyle(color: Colors.white), // style of above set
+//                    hasFloatingPlaceholder: true,
+//                  )
+//                ),
                 SizedBox(height: _gap),
                 Row(
                   children: <Widget>[
@@ -174,22 +174,22 @@ class _SignUpView extends State<SignUpView> {
                 SizedBox(height: _gap),
                 Row(
                   children: <Widget>[
-                    Flexible(
-                      child: TextFormField(
-                          style: TextStyle(color: Colors.white),
-                          cursorColor: Color(0xFFb69862),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFb69862))),
-                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-
-                            labelText: "+43",
-                            labelStyle: TextStyle(color: Colors.white), // style of above set
-                            hasFloatingPlaceholder: true,
-                          )
-                      ),
-                    ),
-                    SizedBox(width: _gap),
+//                    Flexible(
+//                      child: TextFormField(
+//                          style: TextStyle(color: Colors.white),
+//                          cursorColor: Color(0xFFb69862),
+//                          decoration: InputDecoration(
+//                            border: OutlineInputBorder(),
+//                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFb69862))),
+//                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+//
+//                            labelText: "+43",
+//                            labelStyle: TextStyle(color: Colors.white), // style of above set
+//                            hasFloatingPlaceholder: true,
+//                          )
+//                      ),
+//                    ),
+//                    SizedBox(width: _gap),
                     Flexible(
                       flex: 3,
                       child: TextFormField(
