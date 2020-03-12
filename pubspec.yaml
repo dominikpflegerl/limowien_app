@@ -36,8 +36,9 @@ dependencies:
   flutter_rating_bar:
 
 # Firebase
-  firebase_database:
   firebase_auth:
+  firebase_database: # Realtime Database
+  cloud_firestore:
 
 dev_dependencies:
   flutter_launcher_icons:

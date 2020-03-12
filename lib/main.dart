@@ -38,7 +38,8 @@ void main(){
       '/faqView' : (BuildContext context) => new FAQView(),
     },
     //home: new Home(userID: "1", userMail: "test@test") // use it to skip auth
-    home: new RootPage(auth: new Auth())
+    //home: new RootPage(auth: new Auth())
+    home: new RegisterView(),
   )
   );
 }
@@ -67,7 +68,6 @@ class _RootPageState extends State<RootPage> {
   @override
   void initState() {
     super.initState();
-    //
     widget.auth.getCurrentUser().then((user) {
       setState(() {
         if (user != null) {
@@ -77,19 +77,7 @@ class _RootPageState extends State<RootPage> {
         authStatus = user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
       });
     });
-    sleep(Duration(seconds: 1));
-  }
-
-  void loginCallback() {
-    widget.auth.getCurrentUser().then((user) {
-      setState(() {
-        _userID = user.uid.toString();
-        _userMail = user.email.toString();
-      });
-    });
-    setState(() {
-      authStatus = AuthStatus.LOGGED_IN;
-    });
+    sleep(Duration(seconds: 2));
   }
 
   void logoutCallback() {

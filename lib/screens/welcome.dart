@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 
 import 'package:limowien_app/module/delayed_animation.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:limowien_app/services/firebase_auth.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;

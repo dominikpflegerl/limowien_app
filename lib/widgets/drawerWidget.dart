@@ -5,9 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:limowien_app/screens/home.dart';
 
 class NavigationDrawer extends StatelessWidget {
-  NavigationDrawer({Key key, this.userName, this.userMail}) : super(key: key);
-  final String userName;
+  NavigationDrawer({Key key, this.userID, this.userMail, this.userFirstName, this.userLastName}) : super(key: key);
+  final String userID;
   final String userMail;
+  final String userFirstName;
+  final String userLastName;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class NavigationDrawer extends StatelessWidget {
               new UserAccountsDrawerHeader(
                 decoration: new BoxDecoration(color: Color(0xFFb69862)),
                 currentAccountPicture: CircleAvatar(backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/46.jpg")),
-                accountName: new Text(userName, style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                accountName: new Text(userFirstName + " " + userLastName, style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 accountEmail: new Text(userMail, style: TextStyle(fontSize: 15)),
               ),
               // Menu Structure

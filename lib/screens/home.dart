@@ -15,12 +15,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:limowien_app/services/firebase_auth.dart';
 
 class Home extends StatefulWidget {
-  Home({Key key, this.title, this.userID, this.userMail, this.auth, this.logoutCallback}) : super(key: key);
+  Home({Key key, this.title, this.auth, this.logoutCallback, this.userID, this.userMail, this.userFirstName, this.userLastName}) : super(key: key);
   final String title;
   final BaseAuth auth;
   final VoidCallback logoutCallback;
   final String userID;
   final String userMail;
+  final String userFirstName;
+  final String userLastName;
+
   @override
   _Home createState() => _Home();
 }
@@ -36,8 +39,10 @@ class _Home extends State<Home> {
 
   var rating = 0.0;
 
-  get userMail => widget.userMail;
   get userID => widget.userID;
+  get userMail => widget.userMail;
+  get userFirstName => widget.userFirstName;
+  get userLastName => widget.userLastName;
   @override
 
   void initState() {
@@ -46,6 +51,10 @@ class _Home extends State<Home> {
     getCurrentLocationOnStartup();
     super.initState();
     //Timer.run(() => _showRateDialog());
+    print(userID);
+    print(userMail);
+    print(userFirstName);
+    print(userLastName);
   }
 
   void getCurrentLocationOnStartup() async {
@@ -174,7 +183,7 @@ class _Home extends State<Home> {
           onPressed: () => _scaffoldKey.currentState.openDrawer(),
         ),
       ),
-      drawer: NavigationDrawer(userMail: userMail, userName: userID),
+      drawer: NavigationDrawer(userID: userID, userMail: userMail, userFirstName: userFirstName, userLastName: userLastName),
       body: _child,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Stack(
@@ -241,7 +250,4 @@ class _Home extends State<Home> {
       _controller.complete(controller);
     },
   );
-
-
-
 }

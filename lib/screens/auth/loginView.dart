@@ -4,7 +4,6 @@ import 'package:flutter/painting.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:limowien_app/screens/home.dart';
-import 'package:limowien_app/services/firebase_auth.dart';
 
 // TODO
 // hide logo if keyboard is open for visibilitgiy
@@ -38,9 +37,8 @@ class EmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class LoginView extends StatefulWidget {
-  LoginView({Key key, this.title, this.auth}) : super(key: key);
+  LoginView({Key key, this.title}) : super(key: key);
   final String title;
-  final BaseAuth auth;
 
   @override
   _LoginView createState() => new _LoginView();
@@ -56,13 +54,39 @@ class _LoginView extends State<LoginView> {
   TextEditingController emailInputController;
   TextEditingController passwordInputController;
 
+  String _errorMessage;
+  bool _isLoading;
+
   @override
   initState() {
     emailInputController = new TextEditingController();
     passwordInputController = new TextEditingController();
+    _errorMessage = "";
+    _isLoading = true;
     super.initState();
   }
 
+  void _showVerifyEmailSentDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Verify your account"),
+          content:
+          new Text("Link to verify account has been sent to your email"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Dismiss"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   String emailValidator(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -73,7 +97,6 @@ class _LoginView extends State<LoginView> {
       return null;
     }
   }
-
   String passwordValidator(String value) {
     if (value.length < 8) {
       return 'Das Passwort muss länger als 8 Zeichen sein.';
@@ -88,9 +111,7 @@ class _LoginView extends State<LoginView> {
       statusBarIconBrightness: Brightness.light,
       statusBarColor: Color(0xFF221f1c),
     ));
-
     screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       primary: true,
@@ -194,29 +215,31 @@ class _LoginView extends State<LoginView> {
                       Expanded(
                         child: Container(),
                       ),
-                      FlatButton(
-                        child: Text("LOGIN", style: TextStyle(fontSize: 18)),
-                        color: Color(0xFFb69862),
-                        textColor: Colors.white,
-                        padding: EdgeInsets.only(left: 30, right: 30, top: 13, bottom: 13),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {
-
-                          if (_loginFormKey.currentState.validate()) {
-                            //widget.auth.signIn(emailInputController.text, passwordInputController.text).then((user));
-                            FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                                email: emailInputController.text,
-                                password: passwordInputController.text)
+                      SizedBox(
+                        height: 50,
+                        width: 120,
+                        child: FlatButton(
+                          child: Text("LOGIN", style: TextStyle(fontSize: 18)),
+                          //child: Center(child: CircularProgressIndicator()),
+                          color: Color(0xFFb69862),
+                          textColor: Colors.white,
+                          padding: EdgeInsets.only(left: 30, right: 30, top: 13, bottom: 13),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                          onPressed: () {
+                            if (_loginFormKey.currentState.validate()) {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              FirebaseAuth.instance
+                                .signInWithEmailAndPassword(email: emailInputController.text, password: passwordInputController.text)
                                 .then((result) {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home(userID: result.user.uid)),);
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home(userID: result.user.uid, userMail: emailInputController.text)),);
                                   print('User has been logged in!');
-                                  print('User has been logged in!');
-                                  print('User has been logged in!');
-                                 })
+                                })
                                 .catchError((err) => print(err));
-                          }
-                        },
+                            }
+                          },
+                        ),
                       )
                     ],
                   ),
