@@ -2,22 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
-import 'dart:async';
-
-
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:limowien_app/screens/home.dart';
-
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:splashscreen/splashscreen.dart';
 
 // TODO
 // implement loading icon after pressing submit
 // implement error handling for Firestore
 // implement better handling for phone number (ex like + is already displayed when starting to type and spaces between country code and number
 // implement password forgotten feature
+// change route to named route
 
 class EmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
