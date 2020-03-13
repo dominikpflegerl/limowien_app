@@ -14,9 +14,9 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 // TODO
-// hide logo if keyboard is open for visibility
-// implement FireBase Auth
-// implement verification
+// implement loading icon after pressing submit
+// implement error handling for Firestore
+// implement better handling for phone number (ex like + is already displayed when starting to type and spaces between country code and number
 // implement password forgotten feature
 
 class EmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -385,8 +385,9 @@ class _RegisterView extends State<RegisterView> {
                           print(phoneNumberInputController.text);
                           print('------------------------');
                           print('------------------------');
-                          print('------------------------');
                           print('----init Firestore------');
+                          print('------------------------');
+                          print('------------------------');
                           Firestore.instance.collection("users").document(currentUser.user.uid).setData({
                             "uid": currentUser.user.uid,
                             "title": _selectedTitle,
