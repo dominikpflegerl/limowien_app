@@ -37,7 +37,10 @@ void main(){
       '/aboutView' : (BuildContext context) => new AboutView(),
       '/faqView' : (BuildContext context) => new FAQView(),
     },
-    //home: new Home(userID: "1", userMail: "test@test") // use it to skip auth
+    theme: ThemeData(
+      textSelectionHandleColor: Color(0xFFb69862)
+    ),
+    //home: new Home(userID: "1", userMail: "test@test", userTitle: 1, userFirstName: "Dominik", userLastName: "Pflegerl") // use it to skip auth
     //home: new RootPage(auth: new Auth())
     home: new RegisterView(),
   )
@@ -62,8 +65,6 @@ class _RootPageState extends State<RootPage> {
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   String _userID = "";
   String _userMail = "";
-  String _userFirstName = "";
-  String _userLastName = "";
 
   @override
   void initState() {
@@ -85,8 +86,6 @@ class _RootPageState extends State<RootPage> {
       authStatus = AuthStatus.NOT_LOGGED_IN;
       _userID = "";
       _userMail = "";
-      _userFirstName = "";
-      _userLastName ="";
     });
   }
 

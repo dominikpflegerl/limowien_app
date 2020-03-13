@@ -15,14 +15,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:limowien_app/services/firebase_auth.dart';
 
 class Home extends StatefulWidget {
-  Home({Key key, this.title, this.auth, this.logoutCallback, this.userID, this.userMail, this.userFirstName, this.userLastName}) : super(key: key);
+  Home({
+    Key key,
+    this.title,
+    this.auth,
+    this.logoutCallback,
+    this.userID,
+    this.userMail,
+    this.userTitle,
+    this.userFirstName,
+    this.userLastName,
+    this.userPhone
+  }) : super(key: key);
+
+
   final String title;
   final BaseAuth auth;
   final VoidCallback logoutCallback;
   final String userID;
   final String userMail;
+  final int userTitle;
   final String userFirstName;
   final String userLastName;
+  final String userPhone;
 
   @override
   _Home createState() => _Home();
@@ -41,20 +56,29 @@ class _Home extends State<Home> {
 
   get userID => widget.userID;
   get userMail => widget.userMail;
+  get userTitle => widget.userTitle;
   get userFirstName => widget.userFirstName;
   get userLastName => widget.userLastName;
-  @override
+  get userPhone => widget.userPhone;
 
+  @override
   void initState() {
     // TODO: implement initState
     // _child = RippleIndicator("Getting Location");
     getCurrentLocationOnStartup();
     super.initState();
     //Timer.run(() => _showRateDialog());
-    print(userID);
-    print(userMail);
-    print(userFirstName);
-    print(userLastName);
+    print("--------------------");
+    print("----init HOME-------");
+    print("--------------------");
+    print("userID: " + userID);
+    print("userMail: " + userMail);
+    print("userFirstName: " + userFirstName);
+    print("userLastName: " + userLastName);
+    print("userPhone: " + userPhone);
+    print("--------------------");
+    print("----init HOME-------");
+    print("--------------------");
   }
 
   void getCurrentLocationOnStartup() async {

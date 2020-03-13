@@ -34,8 +34,9 @@ dependencies:
   avatar_glow:
   package_info:
   flutter_rating_bar:
+  modal_progress_hud:
 
-# Firebase
+  # Firebase
   firebase_auth:
   firebase_database: # Realtime Database
   cloud_firestore:
