@@ -363,9 +363,6 @@ class _RegisterView extends State<RegisterView> {
                         borderRadius: BorderRadius.circular(5)),
                     onPressed: () {
                       if (_registerFormKey.currentState.validate()) {
-                        setState(() {
-                          _isLoading = true;
-                        });
                         FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailInputController.text, password: passwordInputController.text).then((currentUser) {
                           print('------------------------');
                           print('------------------------');
@@ -424,7 +421,7 @@ class _RegisterView extends State<RegisterView> {
                               errorAlert("Das Passwort muss mindestens 8 Zeichen lang sein, sowie Sonderzeichen und Zahlen enthalten.");
                               break;
                             default:
-                              errorAlert("Es ist ein undefinierter Fehler aufgetreten.");
+                              errorAlert("Es ist ein unbekannter Fehler aufgetreten.");
                           }
                         }
                         );
