@@ -41,8 +41,8 @@ void main(){
       textSelectionHandleColor: Color(0xFFb69862)
     ),
     //home: new Home(userID: "1", userMail: "test@test", userTitle: 1, userFirstName: "Dominik", userLastName: "Pflegerl") // use it to skip auth
-    home: new RootPage(auth: new Auth())
-    //home: new RegisterView(),
+    //home: new RootPage(auth: new Auth())
+    home: new LoginView(),
   )
   );
 }

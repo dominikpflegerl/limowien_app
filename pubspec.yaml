@@ -35,6 +35,7 @@ dependencies:
   package_info:
   flutter_rating_bar:
   modal_progress_hud:
+  argon_buttons_flutter:
 
   # Firebase
   firebase_auth:

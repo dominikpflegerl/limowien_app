@@ -3,7 +3,10 @@ import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:limowien_app/screens/home.dart';
+
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 
 // TODO
 // hide logo if keyboard is open for visibilitgiy
@@ -59,8 +62,8 @@ class _LoginView extends State<LoginView> {
 
   @override
   initState() {
-    emailInputController = new TextEditingController();
-    passwordInputController = new TextEditingController();
+    emailInputController = new TextEditingController(text: 'me@neus.xyz');
+    passwordInputController = new TextEditingController(text: 'Ebid5Aho54#!');
     _errorMessage = "";
     _isLoading = true;
     super.initState();
@@ -87,6 +90,28 @@ class _LoginView extends State<LoginView> {
       },
     );
   }
+
+  void login() {
+
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: emailInputController.text, password: passwordInputController.text)
+        .then((result) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Home(
+            userID: result.user.uid,
+            userMail: emailInputController.text,
+            userTitle: 2,
+            userFirstName: " ",
+            userLastName: "loginView.dart new",
+            userPhone: "+436769684405",
+          ))
+      );
+      print('User has been logged in!');
+    })
+        .catchError((err) => print(err));
+  }
+
   String emailValidator(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -218,38 +243,45 @@ class _LoginView extends State<LoginView> {
                       SizedBox(
                         height: 40,
                         width: 100,
-                        child: FlatButton(
-                          child: Text("LOGIN", style: TextStyle(fontSize: 16)),
-                          //child: Center(child: CircularProgressIndicator()),
+                        child: ArgonButton(
+                          height: 40,
+                          width: 100,
+                          borderRadius: 5.0,
+                          roundLoadingShape: false,
                           color: Color(0xFFb69862),
-                          textColor: Colors.white,
-                          padding: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                          onPressed: () {
-                            if (_loginFormKey.currentState.validate()) {
-                              setState(() {
-                                _isLoading = true;
-                              });
-                              FirebaseAuth.instance
-                                .signInWithEmailAndPassword(email: emailInputController.text, password: passwordInputController.text)
-                                .then((result) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Home(
-                                      userID: result.user.uid,
-                                      userMail: emailInputController.text,
-                                      userTitle: 2,
-                                      userFirstName: " ",
-                                      userLastName: "loginView.dart",
-                                      userPhone: "+436769684405",
-                                    ))
-                                  );
-                                  print('User has been logged in!');
-                                })
-                                .catchError((err) => print(err));
+                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                            ),
+                          ),
+                          loader: Container(
+                            padding: EdgeInsets.all(0),
+                            child: SpinKitThreeBounce(
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                          onTap: (startLoading, stopLoading, btnState) {
+                            if (_loginFormKey.currentState.validate() && btnState == ButtonState.Idle) {
+                              startLoading();
+                              login();
+                            } else {
+                              stopLoading();
                             }
                           },
                         ),
+//                        child: FlatButton(
+//                          child: Text("LOGIN", style: TextStyle(fontSize: 14)),
+//                          //child: Center(child: CircularProgressIndicator()),
+//                          color: Color(0xFFb69862),
+//                          textColor: Colors.white,
+//                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+//                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+//                          onPressed: () {login();},
+//                        ),
                       )
                     ],
                   ),
