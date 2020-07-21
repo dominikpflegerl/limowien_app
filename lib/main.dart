@@ -41,8 +41,8 @@ void main(){
       textSelectionHandleColor: Color(0xFFb69862)
     ),
     //home: new Home(userID: "1", userMail: "test@test", userTitle: 1, userFirstName: "Dominik", userLastName: "Pflegerl") // use it to skip auth
-    //home: new RootPage(auth: new Auth())
-    home: new RegisterView(),
+    home: new RootPage(auth: new Auth())
+    //home: new RegisterView(),
   )
   );
 }
@@ -125,9 +125,11 @@ class _RootPageState extends State<RootPage> {
           print('AuthStatus.LOGGED_IN');
           return new Home(
             userID: _userID,
-            //userFirstName: _userFirstName,
-            //userLastName: _userLastName,
             userMail: _userMail,
+            userTitle: 2,
+            userFirstName: " ",
+            userLastName: "main.dart",
+            userPhone: "+436769684405",
             auth: widget.auth,
             logoutCallback: logoutCallback,
           );

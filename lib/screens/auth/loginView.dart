@@ -216,14 +216,14 @@ class _LoginView extends State<LoginView> {
                         child: Container(),
                       ),
                       SizedBox(
-                        height: 50,
-                        width: 120,
+                        height: 40,
+                        width: 100,
                         child: FlatButton(
-                          child: Text("LOGIN", style: TextStyle(fontSize: 18)),
+                          child: Text("LOGIN", style: TextStyle(fontSize: 16)),
                           //child: Center(child: CircularProgressIndicator()),
                           color: Color(0xFFb69862),
                           textColor: Colors.white,
-                          padding: EdgeInsets.only(left: 30, right: 30, top: 13, bottom: 13),
+                          padding: EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 10),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                           onPressed: () {
                             if (_loginFormKey.currentState.validate()) {
@@ -233,7 +233,17 @@ class _LoginView extends State<LoginView> {
                               FirebaseAuth.instance
                                 .signInWithEmailAndPassword(email: emailInputController.text, password: passwordInputController.text)
                                 .then((result) {
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home(userID: result.user.uid, userMail: emailInputController.text)),);
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => Home(
+                                      userID: result.user.uid,
+                                      userMail: emailInputController.text,
+                                      userTitle: 2,
+                                      userFirstName: " ",
+                                      userLastName: "loginView.dart",
+                                      userPhone: "+436769684405",
+                                    ))
+                                  );
                                   print('User has been logged in!');
                                 })
                                 .catchError((err) => print(err));
