@@ -75,6 +75,7 @@ class _Home extends State<Home> {
     print("userMail: " + userMail);
     print("userFirstName: " + userFirstName);
     print("userLastName: " + userLastName);
+    print("userTitle: $userTitle");
     print("userPhone: " + userPhone);
     print("--------------------");
     print("----init HOME-------");
@@ -207,7 +208,7 @@ class _Home extends State<Home> {
           onPressed: () => _scaffoldKey.currentState.openDrawer(),
         ),
       ),
-      drawer: NavigationDrawer(userID: userID, userMail: userMail, userFirstName: userFirstName, userLastName: userLastName),
+      drawer: NavigationDrawer(userID: userID, userMail: userMail, userTitle: userTitle, userFirstName: userFirstName, userLastName: userLastName, userPhone: userPhone),
       body: _child,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Stack(
