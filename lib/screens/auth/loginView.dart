@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
@@ -10,7 +11,6 @@ import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 
 // TODO
 // hide logo if keyboard is open for visibilitgiy
-// implement FireBase Auth
 // implement verification
 // implement password forgotten feature
 
@@ -58,14 +58,19 @@ class _LoginView extends State<LoginView> {
   TextEditingController passwordInputController;
 
   String _errorMessage;
-  bool _isLoading;
+
+  String uid;
+  String email;
+  int title;
+  String firstname;
+  String lastname;
+  String phone;
 
   @override
   initState() {
     emailInputController = new TextEditingController(text: 'me@neus.xyz');
     passwordInputController = new TextEditingController(text: 'Ebid5Aho54#!');
     _errorMessage = "";
-    _isLoading = true;
     super.initState();
   }
 
@@ -91,25 +96,62 @@ class _LoginView extends State<LoginView> {
     );
   }
 
-  void login() {
+  void login(stopLoading) {
+    FirebaseAuth.instance.signInWithEmailAndPassword(email: emailInputController.text, password: passwordInputController.text).then((user) {
+      Firestore.instance.collection('users').document(user.user.uid).get().then((result) => {
+        if (result.exists) {
+          uid = result.data['uid'].toString(),
+          email = result.data['email'].toString(),
+          title = result.data['title'],
+          firstname = result.data['firstname'].toString(),
+          lastname = result.data['lastname'].toString(),
+          phone = result.data['phone'].toString(),
 
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: emailInputController.text, password: passwordInputController.text)
-        .then((result) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Home(
-            userID: result.user.uid,
-            userMail: emailInputController.text,
-            userTitle: 2,
-            userFirstName: " ",
-            userLastName: "loginView.dart new",
-            userPhone: "+436769684405",
-          ))
-      );
-      print('User has been logged in!');
-    })
-        .catchError((err) => print(err));
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Home(
+              userID: uid,
+              userMail: email,
+              userTitle: title,
+              userFirstName: firstname,
+              userLastName: lastname,
+              userPhone: phone,
+            ))
+          ),
+          print('User has been logged in!')
+         } else errorAlert("User existiert nicht!")
+      }).catchError((error) {errorAlert(error.message);});
+    }).catchError((error) {
+      ///  * `ERROR_INVALID_EMAIL` - If the [email] address is malformed.
+      ///  * `ERROR_WRONG_PASSWORD` - If the [password] is wrong.
+      ///  * `ERROR_USER_NOT_FOUND` - If there is no user corresponding to the given [email] address, or if the user has been deleted.
+      ///  * `ERROR_USER_DISABLED` - If the user has been disabled (for example, in the Firebase console)
+      ///  * `ERROR_TOO_MANY_REQUESTS` - If there was too many attempts to sign in as this user.
+      ///  * `ERROR_OPERATION_NOT_ALLOWED` - Indicates that Email & Password accounts are not enabled.
+      switch(error.code) {
+        case 'ERROR_INVALID_EMAIL':
+          errorAlert("E-Mail-Format ist ungültig");
+          break;
+        case 'ERROR_WRONG_PASSWORD':
+          errorAlert("Das eingegebene Passwort ist falsch.");
+          break;
+        case 'ERROR_USER_NOT_FOUND':
+          errorAlert("Unter dieser E-Mail Adresse wurde kein Kundenkonto gefunden.");
+          break;
+        case 'ERROR_USER_DISABLED':
+          errorAlert("Das Benutzerkonto ist deaktiviert.");
+          break;
+        case 'ERROR_TOO_MANY_REQUESTS':
+          errorAlert("Zu viele Anmeldungsversuche!");
+          break;
+        case 'ERROR_OPERATION_NOT_ALLOWED':
+          errorAlert("Die Anmeldung ist derzeit nicht möglich. Bitte versuchen Sie es später.");
+          break;
+        default:
+          errorAlert("Es ist ein unbekannter Fehler aufgetreten.");
+      }
+      stopLoading();
+    });
   }
 
   String emailValidator(String value) {
@@ -128,6 +170,26 @@ class _LoginView extends State<LoginView> {
     } else {
       return null;
     }
+  }
+
+  void errorAlert(String errorMessage){
+    showDialog(context: context, builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: Color(0xFF221f1c),
+        title: Text("Fehler!", style: TextStyle(color: Colors.white),),
+        content: Text(errorMessage, style: TextStyle(color: Colors.white),),
+        actions: [
+          FlatButton(
+            child: Text("OK", style: TextStyle(color: Colors.white)),
+            onPressed: () {Navigator.of(context).pop();},
+            padding: EdgeInsets.only(right: 10),
+          )
+        ],
+        elevation: 0,
+        titlePadding: EdgeInsets.only(left: 20, top: 15),
+        contentPadding: EdgeInsets.only(left: 20, right: 20, top: 10),
+      );
+    });
   }
 
   @override
@@ -267,7 +329,7 @@ class _LoginView extends State<LoginView> {
                           onTap: (startLoading, stopLoading, btnState) {
                             if (_loginFormKey.currentState.validate() && btnState == ButtonState.Idle) {
                               startLoading();
-                              login();
+                              login(stopLoading);
                             } else {
                               stopLoading();
                             }
