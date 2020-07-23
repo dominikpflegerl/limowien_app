@@ -218,10 +218,10 @@ class _LoginView extends State<LoginView> {
   Widget pageTitle() {
     if (MediaQuery.of(context).viewInsets.bottom == 0) {
       return Padding(
-          padding: EdgeInsets.only(top: 40),
+          padding: EdgeInsets.only(top: 30, left: 33, right: 33),
           child: Align(
             alignment: Alignment.topCenter,
-            child: Image.asset('assets/images/limowien_color2_nobg.png', width: MediaQuery.of(context).size.width/1.33),
+            child: Image.asset('assets/images/limowien_color2_nobg.png', width: MediaQuery.of(context).size.width/1),
           )
       );
     } else {
