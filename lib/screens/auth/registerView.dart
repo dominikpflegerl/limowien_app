@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
 
+import 'package:limowien_app/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:limowien_app/screens/home.dart';
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 // TODO
-// implement loading icon after pressing submit
 // implement error handling for Firestore
 // implement better handling for phone number (ex like + is already displayed when starting to type and spaces between country code and number
 // implement password forgotten feature
@@ -39,7 +41,6 @@ class _RegisterView extends State<RegisterView> {
   TextEditingController phoneNumberInputController;
   TextEditingController passwordInputController;
 
-  bool _isLoading;
 
   @override
   initState() {
@@ -49,8 +50,69 @@ class _RegisterView extends State<RegisterView> {
     phoneNumberInputController = new TextEditingController(text: "+436769684405");
     passwordInputController = new TextEditingController(text: "Ebid5Aho54#!");
 
-    _isLoading = false;
     super.initState();
+  }
+
+  void register(stopLoading) {
+    FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailInputController.text, password: passwordInputController.text).then((currentUser) {
+      print('------------------------');
+      print('------------------------');
+      print('----init FirebaseAuth---');
+      print('------------------------');
+      print('------------------------');
+      print(currentUser.user.uid);
+      print(_selectedTitle);
+      print(firstNameInputController.text);
+      print(lastNameInputController.text);
+      print(emailInputController.text);
+      print(phoneNumberInputController.text);
+      print('------------------------');
+      print('------------------------');
+      print('----init Firestore------');
+      print('------------------------');
+      print('------------------------');
+      Firestore.instance.collection("users").document(currentUser.user.uid).setData({
+        "uid": currentUser.user.uid,
+        "title": _selectedTitle,
+        "firstname": firstNameInputController.text,
+        "lastname": lastNameInputController.text,
+        "email": emailInputController.text,
+        "phone": phoneNumberInputController.text,
+      }).then((result) => {
+        print('------------------------'),
+        print('----push to home--------'),
+        print('------------------------'),
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) =>
+            Home(
+                userID: currentUser.user.uid,
+                userMail: currentUser.user.email,
+                userTitle: _selectedTitle,
+                userFirstName: firstNameInputController.text,
+                userLastName: lastNameInputController.text,
+                userPhone: phoneNumberInputController.text
+            )), (Route<dynamic> route) => false),
+      }).catchError((err) {
+        errorAlert(err.message);
+      });
+    }).catchError((error) {
+      switch(error.code) {
+        case 'ERROR_EMAIL_ALREADY_IN_USE':
+          errorAlert("Die E-Mail-Adresse ist bereits vorhanden.");
+          break;
+        case 'ERROR_INVALID_EMAIL':
+          errorAlert("Die E-Mail-Adresse ist ungültig.");
+          break;
+        case 'ERROR_OPERATION_NOT_ALLOWED':
+          errorAlert("Die Registrierung mit E-Mail und Passwort ist nicht aktiviert.");
+          break;
+        case 'ERROR_WEAK_PASSWORD':
+          errorAlert("Das Passwort muss mindestens 8 Zeichen lang sein, sowie Sonderzeichen und Zahlen enthalten.");
+          break;
+        default:
+          errorAlert("Es ist ein unbekannter Fehler aufgetreten.");
+      }
+      stopLoading();
+    });
   }
 
   String titleValidator(int value) {
@@ -115,11 +177,12 @@ class _RegisterView extends State<RegisterView> {
       value: 0,
     ));
   }
+
   void errorAlert(String errorMessage){
-    showDialog(context: context,builder: (BuildContext context) {
+    showDialog(context: context, builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: Color(0xFF221f1c),
-        title: Text("Fehler:", style: TextStyle(color: Colors.white),),
+        title: Text("Fehler!", style: TextStyle(color: Colors.white),),
         content: Text(errorMessage, style: TextStyle(color: Colors.white),),
         actions: [
           FlatButton(
@@ -133,22 +196,6 @@ class _RegisterView extends State<RegisterView> {
         contentPadding: EdgeInsets.only(left: 20, right: 20, top: 10),
       );
     });
-  }
-
-  void progressAlert(){
-    if(_isLoading) {
-      showDialog(context: context,builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Color(0xFF221f1c),
-          content: Text("WHOA", style: TextStyle(color: Colors.white),),
-          elevation: 0,
-          titlePadding: EdgeInsets.only(left: 20, top: 15),
-          contentPadding: EdgeInsets.only(left: 20, right: 20, top: 10),
-        );
-      });
-    } else {
-      Container(width: 0, height: 0);
-    }
   }
 
   @override
@@ -194,8 +241,7 @@ class _RegisterView extends State<RegisterView> {
     double _contentPaddingVertical = 15;
     double _contentPaddingHorizontal = 15;
 
-    return
-      Padding(
+    return Padding(
         padding: const EdgeInsets.only(top: 10, left: 33, right: 33),
         child: Form(
           key: _registerFormKey,
@@ -352,85 +398,41 @@ class _RegisterView extends State<RegisterView> {
                 ),
                 SizedBox(height: _gap),
                 SizedBox(
-                  width: double.infinity, // match_parent
-                  child: FlatButton(
-                    child: Text("ABSENDEN", style: TextStyle(fontSize: 18)),
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  child: ArgonButton(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    borderRadius: 5.0,
+                    roundLoadingShape: false,
                     color: Color(0xFFb69862),
-                    textColor: Colors.white,
-                    padding: EdgeInsets.only(
-                        left: 40, right: 40, top: 15, bottom: 15),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    onPressed: () {
-                      if (_registerFormKey.currentState.validate()) {
-                        FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailInputController.text, password: passwordInputController.text).then((currentUser) {
-                          print('------------------------');
-                          print('------------------------');
-                          print('----init FirebaseAuth---');
-                          print('------------------------');
-                          print('------------------------');
-                          print(currentUser.user.uid);
-                          print(_selectedTitle);
-                          print(firstNameInputController.text);
-                          print(lastNameInputController.text);
-                          print(emailInputController.text);
-                          print(phoneNumberInputController.text);
-                          print('------------------------');
-                          print('------------------------');
-                          print('----init Firestore------');
-                          print('------------------------');
-                          print('------------------------');
-                          Firestore.instance.collection("users").document(currentUser.user.uid).setData({
-                            "uid": currentUser.user.uid,
-                            "title": _selectedTitle,
-                            "firstname": firstNameInputController.text,
-                            "lastname": lastNameInputController.text,
-                            "email": emailInputController.text,
-                            "phone": phoneNumberInputController.text,
-                          }).then((result) => {
-                            print('------------------------'),
-                            print('----push to home--------'),
-                            print('------------------------'),
-                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) =>
-                                Home(
-                                    userID: currentUser.user.uid,
-                                    userMail: currentUser.user.email,
-                                    userTitle: _selectedTitle,
-                                    userFirstName: firstNameInputController.text,
-                                    userLastName: lastNameInputController.text,
-                                    userPhone: phoneNumberInputController.text
-                                )), (Route<dynamic> route) => false),
-                          }).catchError((err) {
-                            setState(() {
-                              _isLoading = false;
-                            });
-                            errorAlert(err.message);
-                          });
-                        }).catchError((error) {
-                          switch(error.code) {
-                            case 'ERROR_EMAIL_ALREADY_IN_USE':
-                              errorAlert("Die E-Mail-Adresse ist bereits vorhanden.");
-                              break;
-                            case 'ERROR_INVALID_EMAIL':
-                              errorAlert("Die E-Mail-Adresse ist ungültig.");
-                              break;
-                            case 'ERROR_OPERATION_NOT_ALLOWED':
-                              errorAlert("Die Registrierung mit E-Mail und Passwort ist nicht aktiviert.");
-                              break;
-                            case 'ERROR_WEAK_PASSWORD':
-                              errorAlert("Das Passwort muss mindestens 8 Zeichen lang sein, sowie Sonderzeichen und Zahlen enthalten.");
-                              break;
-                            default:
-                              errorAlert("Es ist ein unbekannter Fehler aufgetreten.");
-                          }
-                        }
-                        );
-                      }},
-                    //onPressed: () {Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Home(),));},
+                    child: Text(
+                        "Absenden",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white
+                        )
+                    ),
+                    loader: Container(
+                      //padding: EdgeInsets.all(0),
+                      child: SpinKitThreeBounce(
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                    onTap: (startLoading, stopLoading, btnState) {
+                      if (_registerFormKey.currentState.validate() && btnState == ButtonState.Idle) {
+                        startLoading();
+                        register(stopLoading);
+                      } else {
+                        stopLoading();
+                      }
+                    },
                   ),
                 ),
+                SizedBox(height: 15),
+                Divider(color: Colors.grey),
                 Row(
-                  //crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
@@ -438,10 +440,11 @@ class _RegisterView extends State<RegisterView> {
                       style: TextStyle(color: Colors.grey),
                     ),
                     FlatButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/loginView');},
-                      textColor: Colors.white,
                       child: Text("Login"),
+                      textColor: Colors.white,
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onPressed: () {Navigator.of(context).pushNamed('/loginView');},
                     )
                   ],
                 ),

@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for coloring statusbar
 import 'package:flutter/painting.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:limowien_app/screens/home.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 // TODO
 // hide logo if keyboard is open for visibilitgiy
@@ -57,8 +58,6 @@ class _LoginView extends State<LoginView> {
   TextEditingController emailInputController;
   TextEditingController passwordInputController;
 
-  String _errorMessage;
-
   String uid;
   String email;
   int title;
@@ -70,7 +69,7 @@ class _LoginView extends State<LoginView> {
   initState() {
     emailInputController = new TextEditingController(text: 'me@neus.xyz');
     passwordInputController = new TextEditingController(text: 'Ebid5Aho54#!');
-    _errorMessage = "";
+
     super.initState();
   }
 
@@ -335,23 +334,13 @@ class _LoginView extends State<LoginView> {
                             }
                           },
                         ),
-//                        child: FlatButton(
-//                          child: Text("LOGIN", style: TextStyle(fontSize: 14)),
-//                          //child: Center(child: CircularProgressIndicator()),
-//                          color: Color(0xFFb69862),
-//                          textColor: Colors.white,
-//                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-//                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-//                          onPressed: () {login();},
-//                        ),
                       )
                     ],
                   ),
-                  SizedBox(height: _gap),
+                  SizedBox(height: 15),
                   Divider(color: Colors.grey),
                   SizedBox(height: 10),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
@@ -359,9 +348,11 @@ class _LoginView extends State<LoginView> {
                         style: TextStyle(color: Colors.grey),
                       ),
                       FlatButton(
-                        onPressed: () {Navigator.of(context).pushNamed('/registerView');},
-                        textColor: Colors.white,
                         child: Text("Registrieren"),
+                        textColor: Colors.white,
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {Navigator.of(context).pushNamed('/registerView');},
                       )
                     ],
                   )
